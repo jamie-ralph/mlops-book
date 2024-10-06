@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jamie Ralph">
-<meta name="dcterms.date" content="2024-09-24">
 
-<title>Big Book of MLOps</title>
+<title>1&nbsp; Networking in Kubernetes – Big Book of MLOps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./kubernetes-networking.html" rel="next">
+<link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -82,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./kubernetes-networking.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networking in Kubernetes</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -109,13 +107,13 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./kubernetes-networking.html" class="sidebar-item-text sidebar-link">
+  <a href="./kubernetes-networking.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networking in Kubernetes</span></span></a>
   </div>
 </li>
@@ -129,7 +127,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#networking-basics" id="toc-networking-basics" class="nav-link active" data-scroll-target="#networking-basics"><span class="header-section-number">1.1</span> Networking basics</a>
+  <ul class="collapse">
+  <li><a href="#how-can-computers-talk-to-each-other-on-a-network" id="toc-how-can-computers-talk-to-each-other-on-a-network" class="nav-link" data-scroll-target="#how-can-computers-talk-to-each-other-on-a-network"><span class="header-section-number">1.1.1</span> How can computers talk to each other on a network?</a></li>
+  <li><a href="#routing" id="toc-routing" class="nav-link" data-scroll-target="#routing"><span class="header-section-number">1.1.2</span> Routing</a></li>
+  <li><a href="#domain-name-systems-dns-in-a-simple-internal-network" id="toc-domain-name-systems-dns-in-a-simple-internal-network" class="nav-link" data-scroll-target="#domain-name-systems-dns-in-a-simple-internal-network"><span class="header-section-number">1.1.3</span> Domain Name Systems (DNS) in a simple internal network</a></li>
+  <li><a href="#proxies" id="toc-proxies" class="nav-link" data-scroll-target="#proxies"><span class="header-section-number">1.1.4</span> Proxies</a></li>
+  </ul></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">1.2</span> Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -138,26 +143,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Big Book of MLOps</h1>
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networking in Kubernetes</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jamie Ralph </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">September 24, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -167,11 +160,98 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>My journey into MLOps started in late 2023 when I needed to deploy an R Shiny app at the company I was working for. Up to that point there had been no easy way to do this, but luckily for me the MLOps team had put together a Helm chart for deploying containerised applications. I wasn’t part of the data science team, but MLOps very kindly helped me get my app deployed. At the time I had no idea what Kubernetes was or how Helm charts worked - I just containerised my app with Docker, filled in some YAML files, and there it was. I was given access to this mystical platform called ‘ArgoCD’ where I could look at little tiles that represented things I didn’t understand. The only thing I knew for certain was that the little green heart was good, and the broken red heart was bad.</p>
-<p>Around 6 months later I was given the chance to transition over to the MLOps team. I jumped at the chance and never regretted my decision, but I quickly found the learning curve to be steep (somewhere around 89 degrees?) and was overwhelmed with where to begin. A few months into the job I started a google doc - I called it “the big book of MLOPs” (O’Reilly got there first). This was my place to write down notes from the tutorials/courses/books etc. that I was using to gain the knowledge I needed for my job. I decided these notes should sit in a more public forum because a) they could help someone else and b) if my notes could be improved, someone can open a PR and improve them, and c) the human brain can only hold so much information - writing things down is much more effective than trying to remember everything.</p>
-<p>I hope you might find these notes useful, especially if you’re just starting out in MLOps or looking to move into the field.</p>
+<section id="networking-basics" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="networking-basics"><span class="header-section-number">1.1</span> Networking basics</h2>
+<section id="how-can-computers-talk-to-each-other-on-a-network" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="how-can-computers-talk-to-each-other-on-a-network"><span class="header-section-number">1.1.1</span> How can computers talk to each other on a network?</h3>
+<ul>
+<li>In a simple network, two computers (let’s call them A and B) can exchange information over a network</li>
+<li>This communication is transmitted via a network switch, a piece of equipment that can connect IT devies. Network siwtches can vary in speed (gigabytes per second).</li>
+<li>A computer sends information to the switch via an <strong>interface</strong>. This interface can be a piece of hardware or software depending on the situation, but is essentially a point of connection between the device and the network</li>
+<li>On linux, running <code>ip link</code> will print a list of interfaces in the terminal</li>
+<li>If we assume the network has an ip address of 192.165.1.0, we could add ip addresses to A and B with <code>ip addr add</code>, e.g.&nbsp;<code>ip addr add 192.165.1.10/24 dev eth0</code> for A and <code>ip addr add 192.165.1.11/24 dev eth0</code>. Note: Here, <strong>dev</strong> stands for <strong>device</strong> and eth0 is the first ethernet interface on the system.</li>
+<li>This would mean that A and B can now exchange packets with each other. Packets are small segments of a larger piece of information being sent over the network, which are recombined by the device that receives them.</li>
+</ul>
+</section>
+<section id="routing" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="routing"><span class="header-section-number">1.1.2</span> Routing</h3>
+<ul>
+<li>A router helps connect different networks</li>
+<li>The router is visible to each network with a different ip address</li>
+<li>Networks are configured with <strong>gateways</strong> which connects two different networks</li>
+<li>The <code>route</code> command in Linux will print the routing table</li>
+<li>Routes can be added using <code>ip route add</code></li>
+<li>Let’s assume this network setup:
+<ul>
+<li>A and B exist on network 192.165.1.0 - we’ll call this network 1</li>
+<li>C and D exist on network 192.165.2.0 - we’ll call this network 2</li>
+<li>A router is connected to network 1 via the ip 192.165.1.1, and connected to network 2 via the ip 192.165.2.1</li>
+</ul></li>
+<li>We can connect device A to network 2 by running <code>ip route add 192.165.2.0/24 via 192.165.1.1</code></li>
+<li>Running <code>route</code> shows that the router is now a gateway to network 2</li>
+<li>You can set default routes instead of adding an entry for every single network - <code>ip route add default via 192.165.1.1</code> - default is sometimes seen as ‘0.0.0.0’</li>
+<li>Linux servers can act as hosts themselves but packet forwarding between interfaces needs to be enabled. This can be a security threat if one interface connects to a public network and the other to a private network.</li>
+</ul>
+</section>
+<section id="domain-name-systems-dns-in-a-simple-internal-network" class="level3" data-number="1.1.3">
+<h3 data-number="1.1.3" class="anchored" data-anchor-id="domain-name-systems-dns-in-a-simple-internal-network"><span class="header-section-number">1.1.3</span> Domain Name Systems (DNS) in a simple internal network</h3>
+<ul>
+<li>In a small simple network (let’s use A and B again, connected via a switch), we can give names to each device. I can add an entry in the <code>/etc/hosts</code> file of A:</li>
+</ul>
+<pre><code>192.165.1.11    myname</code></pre>
+<ul>
+<li>I can now run <code>ping myname</code> to check connectivity to computer B. However, A will not actually check that B’s host name is myname. And this tasks would quickly become impossible as the network grew</li>
+<li>An internal DNS server solves the problem - it is a server containing a single source of truth</li>
+<li>If we assume the DNS server’s ip address is 192.165.1.100, an entry in A’s <code>/etc/resolv.conf</code> file tells it where to resolve domain names:</li>
+</ul>
+<pre><code>nameserver  192.165.1.100</code></pre>
+<p>###&nbsp;DNS on the internet</p>
+<ul>
+<li>A DNS functions like an internet phonebook. Domain names are linked to IP addresses - it means humans don’t need to memorise long IP addresses</li>
+<li></li>
+<li>Domain names are strings pointing to a specific web services</li>
+<li>A domain name is usually comprised of several elements - e.g.&nbsp;www.google.com can be broken down to:
+<ul>
+<li>.com - top level domain (other examples are .edu, .org, .io) - can be a sign of the intent of the server e.g.&nbsp;.edu is for educational institutions, .org for non-profit</li>
+<li>google - the second level domain</li>
+<li>www - a subdomain (other google examples could be mail or maps)</li>
+</ul></li>
+<li>There are DNS servers on the internet that are searched to find the ip address of the server that is hosting the web applications</li>
+<li>ip addresses can be cached by browsers to speed up subsequent requests</li>
+<li>DNS can contain records:
+<ul>
+<li>A records - map ip addresses to hostnames</li>
+<li>AAAA (quad A) records - map IPv6 to hostnames</li>
+<li>CNAME (canonical name) - map one name to another e.g.&nbsp;if flowers.example.com had a CNAME record with a value of example.com, a lookup of “flowers.example.com” provies the ip address of “example.com”, which is the canonical name</li>
+</ul></li>
+</ul>
+</section>
+<section id="proxies" class="level3" data-number="1.1.4">
+<h3 data-number="1.1.4" class="anchored" data-anchor-id="proxies"><span class="header-section-number">1.1.4</span> Proxies</h3>
+<ul>
+<li>A proxy server is a digital intermediary, routing internet traffic between users and online resources, ensuring secure and controlled data exchange. This is sometimes called a “forward proxy”</li>
+<li>Instead of the client request going straight to the destination via the ISP, it is routed through the proxy. The proxy can mask the original IP address and intercept the information that is returned. It can additionally scan for malicious information.</li>
+<li>Reverse proxies are different - they sit in front of web servers to prevent direct communication to the destination server. The difference between a forward and reverse proxy is subtle but important. A simplified way to sum it up would be to say that a forward proxy sits in front of a client and ensures that no origin server ever communicates directly with that specific client. On the other hand, a reverse proxy sits in front of an origin server and ensures that no client ever communicates directly with that origin server.</li>
+<li>Benefits of reverse proxies include:
+<ul>
+<li>Load balancing</li>
+<li>Protection from attacks - because the origin IP address is never revealed, attacks like DOS are harder to carry out</li>
+<li>Caching - local proxies accessing websites elsewhere can cache results for future users (e.g.&nbsp;user in the UK accessing a site hosted in the USA - cached data can now be served to other UK users for faster access)</li>
+<li>SSL encryption and decryption can be performed by the reverse proxy, reducing the computational load on the origin server</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="resources" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="resources"><span class="header-section-number">1.2</span> Resources</h2>
+<p>Some of the resources I used in this chapter include:</p>
+<ul>
+<li><a href="https://www.udemy.com/course/certified-kubernetes-administrator-with-practice-tests/">Certified Kubernetes Administrator (CKA) with Practice Tests</a></li>
+<li><a href="https://www.juniper.net/gb/en/research-topics/what-is-a-network-switch.html">What is a network switch? by Juniper Networks</a></li>
+<li><a href="https://aws.amazon.com/what-is/computer-networking/">What is computer networking? by AWS</a></li>
+<li><a href="https://nordlayer.com/learn/network-security/network-gateway/">What is a network gateway? by NordLayer</a></li>
+<li><a href="https://www.cloudflare.com/en-gb/learning/dns/dns-records/dns-cname-record/">What is a DNS CNAME record? by CloudFlare</a></li>
+</ul>
 
 
 </section>
@@ -599,11 +679,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Preface">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./kubernetes-networking.html" class="pagination-link" aria-label="Networking in Kubernetes">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networking in Kubernetes</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
