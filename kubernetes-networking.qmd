@@ -59,9 +59,9 @@ nameserver  192.165.1.100
     * AAAA (quad A) records - map IPv6 to hostnames
     * CNAME (canonical name) - map one name to another e.g. if flowers.example.com had a CNAME record with a value of example.com, a lookup of "flowers.example.com" provies the ip address of "example.com", which is the canonical name
 
-## Notes from online articles
+## Notes from online articles {.unnumbered}
 
-### Proxies and Reverse Proxies
+### Proxies and Reverse Proxies {.unnumbered}
 
 Proxies (also called forward proxies) are intermediary servers that intercept client requests. A proxy might be implemented in an organisation to do things like block restricted content. Meanwhile, reverse proxies sit in front of servers and accept requests coming over the internet. They can provide functions such as load balancing and SSL encryption/decryption. The article [What is a reverse proxy? by CloudFlare](https://www.cloudflare.com/en-gb/learning/cdn/glossary/reverse-proxy/) provides a good overview of these concepts. NGINX is a popular reverse proxy - [this introduction to NGINX](https://dev.to/thesanjeevsharma/introduction-to-nginx-213b) provides a nice practical demonstration of its abilities. 
 
