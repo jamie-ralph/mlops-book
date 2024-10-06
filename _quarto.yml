@@ -7,8 +7,7 @@ book:
   date: "9/24/2024"
   chapters:
     - index.qmd
-    - intro.qmd
-    - summary.qmd
+    - kubernetes-networking.qmd
 
 format:
   html:
