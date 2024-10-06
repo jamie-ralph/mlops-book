@@ -1,8 +1,8 @@
-# Networking in Kubernetes
+# Networking in Kubernetes {.unnumbered}
 
-## Notes from [Certified Kubernetes Administrator (CKA) with Practice Tests](https://www.udemy.com/course/certified-kubernetes-administrator-with-practice-tests/)
+## Notes from [Certified Kubernetes Administrator (CKA) with Practice Tests](https://www.udemy.com/course/certified-kubernetes-administrator-with-practice-tests/) {.unnumbered}
 
-### Pre-requisites on networking
+### Pre-requisites on networking {.unnumbered}
 
 #### How can computers talk to each other on a network?
 
