@@ -1,17 +1,19 @@
 # Networking in Kubernetes
 
-## Networking basics
+## Notes from [Certified Kubernetes Administrator (CKA) with Practice Tests](https://www.udemy.com/course/certified-kubernetes-administrator-with-practice-tests/)
 
-### How can computers talk to each other on a network?
+### Pre-requisites on networking
+
+#### How can computers talk to each other on a network?
 
 * In a simple network, two computers (let's call them A and B) can exchange information over a network
-* This communication is transmitted via a network switch, a piece of equipment that can connect IT devies. Network siwtches can vary in speed (gigabytes per second).
+* This communication is transmitted via a **network switch**, a piece of equipment that can connect IT devies. Network siwtches can vary in speed (e.g gigabytes per second).
 * A computer sends information to the switch via an **interface**. This interface can be a piece of hardware or software depending on the situation, but is essentially a point of connection between the device and the network 
 * On linux, running `ip link` will print a list of interfaces in the terminal
-* If we assume the network has an ip address of 192.165.1.0, we could add ip addresses to A and B with `ip addr add`, e.g. `ip addr add 192.165.1.10/24 dev eth0` for A and `ip addr add 192.165.1.11/24 dev eth0`. Note: Here, **dev** stands for **device** and eth0 is the first ethernet interface on the system. 
+* If we assume the network has an ip address of 192.165.1.0, we could add ip addresses to A and B with `ip addr add`, e.g. `ip addr add 192.165.1.10/24 dev eth0` on A and `ip addr add 192.165.1.11/24 dev eth0` on B. Note: Here, **dev** stands for **device** and eth0 is the first ethernet interface on the system. 
 * This would mean that A and B can now exchange packets with each other. Packets are small segments of a larger piece of information being sent over the network, which are recombined by the device that receives them. 
 
-### Routing
+#### Routing
 
 * A router helps connect different networks
 * The router is visible to each network with a different ip address
@@ -28,7 +30,7 @@
 * Linux servers can act as hosts themselves but packet forwarding between interfaces needs to be enabled. This can be a security threat if one interface connects to a public network and the other to a private network. 
 
 
-### Domain Name Systems (DNS) in a simple internal network
+#### Domain Name Systems (DNS)
 
 * In a small simple network (let's use A and B again, connected via a switch), we can give names to each device. I can add an entry in the `/etc/hosts` file of A: 
 
@@ -44,10 +46,7 @@
 nameserver  192.165.1.100
 ```
 
-### DNS on the internet
-
 * A DNS functions like an internet phonebook. Domain names are linked to IP addresses - it means humans don’t need to memorise long IP addresses
-* 
 * Domain names are strings pointing to a specific web services
 * A domain name is usually comprised of several elements - e.g. www.google.com can be broken down to:
     * .com - top level domain (other examples are .edu, .org, .io) - can be a sign of the intent of the server e.g. .edu is for educational institutions, .org for non-profit
@@ -60,23 +59,17 @@ nameserver  192.165.1.100
     * AAAA (quad A) records - map IPv6 to hostnames
     * CNAME (canonical name) - map one name to another e.g. if flowers.example.com had a CNAME record with a value of example.com, a lookup of "flowers.example.com" provies the ip address of "example.com", which is the canonical name
 
-### Proxies
+## Notes from online articles
 
-* A proxy server is a digital intermediary, routing internet traffic between users and online resources, ensuring secure and controlled data exchange. This is sometimes called a “forward proxy”
-* Instead of the client request going straight to the destination via the ISP, it is routed through the proxy. The proxy can mask the original IP address and intercept the information that is returned. It can additionally scan for malicious information. 
-* Reverse proxies are different - they sit in front of web servers to prevent direct communication to the destination server. The difference between a forward and reverse proxy is subtle but important. A simplified way to sum it up would be to say that a forward proxy sits in front of a client and ensures that no origin server ever communicates directly with that specific client. On the other hand, a reverse proxy sits in front of an origin server and ensures that no client ever communicates directly with that origin server.
-* Benefits of reverse proxies include:
-    * Load balancing
-    * Protection from attacks - because the origin IP address is never revealed, attacks like DOS are harder to carry out
-    * Caching - local proxies accessing websites elsewhere can cache results for future users (e.g. user in the UK accessing a site hosted in the USA - cached data can now be served to other UK users for faster access)
-    * SSL encryption and decryption can be performed by the reverse proxy, reducing the computational load on the origin server 
+### Proxies and Reverse Proxies
+
+Proxies (also called forward proxies) are intermediary servers that intercept client requests. A proxy might be implemented in an organisation to do things like block restricted content. Meanwhile, reverse proxies sit in front of servers and accept requests coming over the internet. They can provide functions such as load balancing and SSL encryption/decryption. The article [What is a reverse proxy? by CloudFlare](https://www.cloudflare.com/en-gb/learning/cdn/glossary/reverse-proxy/) provides a good overview of these concepts. NGINX is a popular reverse proxy - [this introduction to NGINX](https://dev.to/thesanjeevsharma/introduction-to-nginx-213b) provides a nice practical demonstration of its abilities. 
 
 
 ## Resources
 
-Some of the resources I used in this chapter include:
+Some of the other resources I used to understand networking basics:
 
-* [Certified Kubernetes Administrator (CKA) with Practice Tests](https://www.udemy.com/course/certified-kubernetes-administrator-with-practice-tests/)
 * [What is a network switch? by Juniper Networks](https://www.juniper.net/gb/en/research-topics/what-is-a-network-switch.html)
 * [What is computer networking? by AWS](https://aws.amazon.com/what-is/computer-networking/)
 * [What is a network gateway? by NordLayer](https://nordlayer.com/learn/network-security/network-gateway/)
