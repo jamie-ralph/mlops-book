@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1&nbsp; Networking in Kubernetes – Big Book of MLOps</title>
+<title>Networking in Kubernetes – Big Book of MLOps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -80,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./kubernetes-networking.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networking in Kubernetes</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./kubernetes-networking.html">Networking in Kubernetes</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -114,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./kubernetes-networking.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networking in Kubernetes</span></span></a>
+ <span class="menu-text">Networking in Kubernetes</span></a>
   </div>
 </li>
     </ul>
@@ -127,15 +127,15 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#notes-from-certified-kubernetes-administrator-cka-with-practice-tests" id="toc-notes-from-certified-kubernetes-administrator-cka-with-practice-tests" class="nav-link active" data-scroll-target="#notes-from-certified-kubernetes-administrator-cka-with-practice-tests"><span class="header-section-number">1.1</span> Notes from Certified Kubernetes Administrator (CKA) with Practice Tests</a>
+  <li><a href="#notes-from-certified-kubernetes-administrator-cka-with-practice-tests" id="toc-notes-from-certified-kubernetes-administrator-cka-with-practice-tests" class="nav-link active" data-scroll-target="#notes-from-certified-kubernetes-administrator-cka-with-practice-tests">Notes from Certified Kubernetes Administrator (CKA) with Practice Tests</a>
   <ul class="collapse">
-  <li><a href="#pre-requisites-on-networking" id="toc-pre-requisites-on-networking" class="nav-link" data-scroll-target="#pre-requisites-on-networking"><span class="header-section-number">1.1.1</span> Pre-requisites on networking</a></li>
+  <li><a href="#pre-requisites-on-networking" id="toc-pre-requisites-on-networking" class="nav-link" data-scroll-target="#pre-requisites-on-networking">Pre-requisites on networking</a></li>
   </ul></li>
-  <li><a href="#notes-from-online-articles" id="toc-notes-from-online-articles" class="nav-link" data-scroll-target="#notes-from-online-articles"><span class="header-section-number">1.2</span> Notes from online articles</a>
+  <li><a href="#notes-from-online-articles" id="toc-notes-from-online-articles" class="nav-link" data-scroll-target="#notes-from-online-articles">Notes from online articles</a>
   <ul class="collapse">
-  <li><a href="#proxies-and-reverse-proxies" id="toc-proxies-and-reverse-proxies" class="nav-link" data-scroll-target="#proxies-and-reverse-proxies"><span class="header-section-number">1.2.1</span> Proxies and Reverse Proxies</a></li>
+  <li><a href="#proxies-and-reverse-proxies" id="toc-proxies-and-reverse-proxies" class="nav-link" data-scroll-target="#proxies-and-reverse-proxies">Proxies and Reverse Proxies</a></li>
   </ul></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">1.3</span> Resources</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -144,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networking in Kubernetes</span></h1>
+<h1 class="title">Networking in Kubernetes</h1>
 </div>
 
 
@@ -161,12 +161,12 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="notes-from-certified-kubernetes-administrator-cka-with-practice-tests" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="notes-from-certified-kubernetes-administrator-cka-with-practice-tests"><span class="header-section-number">1.1</span> Notes from <a href="https://www.udemy.com/course/certified-kubernetes-administrator-with-practice-tests/">Certified Kubernetes Administrator (CKA) with Practice Tests</a></h2>
-<section id="pre-requisites-on-networking" class="level3" data-number="1.1.1">
-<h3 data-number="1.1.1" class="anchored" data-anchor-id="pre-requisites-on-networking"><span class="header-section-number">1.1.1</span> Pre-requisites on networking</h3>
-<section id="how-can-computers-talk-to-each-other-on-a-network" class="level4" data-number="1.1.1.1">
-<h4 data-number="1.1.1.1" class="anchored" data-anchor-id="how-can-computers-talk-to-each-other-on-a-network"><span class="header-section-number">1.1.1.1</span> How can computers talk to each other on a network?</h4>
+<section id="notes-from-certified-kubernetes-administrator-cka-with-practice-tests" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="notes-from-certified-kubernetes-administrator-cka-with-practice-tests">Notes from <a href="https://www.udemy.com/course/certified-kubernetes-administrator-with-practice-tests/">Certified Kubernetes Administrator (CKA) with Practice Tests</a></h2>
+<section id="pre-requisites-on-networking" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="pre-requisites-on-networking">Pre-requisites on networking</h3>
+<section id="how-can-computers-talk-to-each-other-on-a-network" class="level4">
+<h4 class="anchored" data-anchor-id="how-can-computers-talk-to-each-other-on-a-network">How can computers talk to each other on a network?</h4>
 <ul>
 <li>In a simple network, two computers (let’s call them A and B) can exchange information over a network</li>
 <li>This communication is transmitted via a <strong>network switch</strong>, a piece of equipment that can connect IT devies. Network siwtches can vary in speed (e.g gigabytes per second).</li>
@@ -176,8 +176,8 @@ ul.task-list li input[type="checkbox"] {
 <li>This would mean that A and B can now exchange packets with each other. Packets are small segments of a larger piece of information being sent over the network, which are recombined by the device that receives them.</li>
 </ul>
 </section>
-<section id="routing" class="level4" data-number="1.1.1.2">
-<h4 data-number="1.1.1.2" class="anchored" data-anchor-id="routing"><span class="header-section-number">1.1.1.2</span> Routing</h4>
+<section id="routing" class="level4">
+<h4 class="anchored" data-anchor-id="routing">Routing</h4>
 <ul>
 <li>A router helps connect different networks</li>
 <li>The router is visible to each network with a different ip address</li>
@@ -196,8 +196,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Linux servers can act as hosts themselves but packet forwarding between interfaces needs to be enabled. This can be a security threat if one interface connects to a public network and the other to a private network.</li>
 </ul>
 </section>
-<section id="domain-name-systems-dns" class="level4" data-number="1.1.1.3">
-<h4 data-number="1.1.1.3" class="anchored" data-anchor-id="domain-name-systems-dns"><span class="header-section-number">1.1.1.3</span> Domain Name Systems (DNS)</h4>
+<section id="domain-name-systems-dns" class="level4">
+<h4 class="anchored" data-anchor-id="domain-name-systems-dns">Domain Name Systems (DNS)</h4>
 <ul>
 <li>In a small simple network (let’s use A and B again, connected via a switch), we can give names to each device. I can add an entry in the <code>/etc/hosts</code> file of A:</li>
 </ul>
@@ -229,15 +229,15 @@ ul.task-list li input[type="checkbox"] {
 </section>
 </section>
 </section>
-<section id="notes-from-online-articles" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="notes-from-online-articles"><span class="header-section-number">1.2</span> Notes from online articles</h2>
-<section id="proxies-and-reverse-proxies" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="proxies-and-reverse-proxies"><span class="header-section-number">1.2.1</span> Proxies and Reverse Proxies</h3>
+<section id="notes-from-online-articles" class="level2">
+<h2 class="anchored" data-anchor-id="notes-from-online-articles">Notes from online articles</h2>
+<section id="proxies-and-reverse-proxies" class="level3">
+<h3 class="anchored" data-anchor-id="proxies-and-reverse-proxies">Proxies and Reverse Proxies</h3>
 <p>Proxies (also called forward proxies) are intermediary servers that intercept client requests. A proxy might be implemented in an organisation to do things like block restricted content. Meanwhile, reverse proxies sit in front of servers and accept requests coming over the internet. They can provide functions such as load balancing and SSL encryption/decryption. The article <a href="https://www.cloudflare.com/en-gb/learning/cdn/glossary/reverse-proxy/">What is a reverse proxy? by CloudFlare</a> provides a good overview of these concepts. NGINX is a popular reverse proxy - <a href="https://dev.to/thesanjeevsharma/introduction-to-nginx-213b">this introduction to NGINX</a> provides a nice practical demonstration of its abilities.</p>
 </section>
 </section>
-<section id="resources" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="resources"><span class="header-section-number">1.3</span> Resources</h2>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
 <p>Some of the other resources I used to understand networking basics:</p>
 <ul>
 <li><a href="https://www.juniper.net/gb/en/research-topics/what-is-a-network-switch.html">What is a network switch? by Juniper Networks</a></li>
