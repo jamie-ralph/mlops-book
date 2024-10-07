@@ -130,6 +130,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#notes-from-certified-kubernetes-administrator-cka-with-practice-tests" id="toc-notes-from-certified-kubernetes-administrator-cka-with-practice-tests" class="nav-link active" data-scroll-target="#notes-from-certified-kubernetes-administrator-cka-with-practice-tests">Notes from Certified Kubernetes Administrator (CKA) with Practice Tests</a>
   <ul class="collapse">
   <li><a href="#pre-requisites-on-networking" id="toc-pre-requisites-on-networking" class="nav-link" data-scroll-target="#pre-requisites-on-networking">Pre-requisites on networking</a></li>
+  <li><a href="#network-namespaces-in-linux" id="toc-network-namespaces-in-linux" class="nav-link" data-scroll-target="#network-namespaces-in-linux">Network Namespaces in Linux</a></li>
   </ul></li>
   <li><a href="#notes-from-online-articles" id="toc-notes-from-online-articles" class="nav-link" data-scroll-target="#notes-from-online-articles">Notes from online articles</a>
   <ul class="collapse">
@@ -228,6 +229,75 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
+<section id="network-namespaces-in-linux" class="level3">
+<h3 class="anchored" data-anchor-id="network-namespaces-in-linux">Network Namespaces in Linux</h3>
+<p>A Linux installation generally shares a single set of network interfaces and routing table entries, but you can create isolated networks within that server. <a href="https://blog.scottlowe.org/2013/09/04/introducing-linux-network-namespaces/">This article by Scott Lowe</a> goes into some detail about how to set up a network namespace on Ubuntu.</p>
+<p>The CKA course on Udemy goes into more detail about creating a virtual network with namespaces and virtual switches:</p>
+<ul>
+<li>There are different options for the network switch including Linux Bridge and Open vSwitch - below we’ll use Linux Bridge</li>
+<li>Run the command <code>ip link add v-net-0 type bridge</code> on the host - to create a new interface (run <code>ip link</code> to see it) - you’ll also need to turn it up using <code>ip link set dev v-net-0 up</code></li>
+<li>Next, to connect a namespace to the switch, you’ll need a virtual cable. Let’s assume we are connecting namespace <em>red</em> to the virtual switch:
+<ul>
+<li>Use <code>ip link add veth-red type veth peer name veth-red-br</code> to create the cable</li>
+<li>Use <code>ip link set veth-red</code> netns red</li>
+<li>Use <code>ip link set veth-red-br</code> master v-net-0</li>
+<li>Finally, assign ip addresses to the namespace interface E.g. <code>ip -n red addr add 192.165.15.1/24 dev veth-red</code></li>
+</ul></li>
+<li>To allow the virtual network to reach networks outside itself:
+<ul>
+<li>we add an ip address to the virtual interface e.g.&nbsp;<code>ip addr add 192.165.15.5/24 dev v-net-0</code></li>
+<li>in a given namespace (e.g.&nbsp;red) - add a gateway. <code>ip netns exec red ip route add 192.165.1.0/24 via 192.165.15.5</code> - our host is now the gateway (also do this for default)</li>
+<li>add a rule in iptables on host to mask requests coming from the virtual network with its own ip address - <code>iptable -t nat -A POSTROUTING -s 192.165.15.0/24 -j MASQUERADE</code></li>
+</ul></li>
+<li>Allowing requests to be made to a service in the virtual network from outside the host would require port forwarding with iptables</li>
+<li>NOTE: There were some omissions from the video - fortunately the Q&amp;A for the video had the solution:</li>
+</ul>
+<pre><code># Add a bridge interface
+# It's like an interface for the host and a switch for namespaces!
+ip link add v-net-0 type bridge
+# Bring it up
+ip link set dev v-net-0 up
+# Add namespaces
+ip netns add red
+ip netns add blue
+ip netns add green
+ip netns add yellow
+# Create a virtual cable for namespace and bridge
+ip link add veth-red type veth peer name veth-red-br
+ip link add veth-blue type veth peer name veth-blue-br
+ip link add veth-green type veth peer name veth-green-br
+ip link add veth-yellow type veth peer name veth-yellow-br
+# Connect one end of virtual cable to namespace red
+ip link set veth-red netns red
+ip link set veth-blue netns blue
+ip link set veth-green netns green
+ip link set veth-yellow netns yellow
+# Connect virtual cable to the bridge
+ip link set veth-red-br master v-net-0
+ip link set veth-blue-br master v-net-0
+ip link set veth-green-br master v-net-0
+ip link set veth-yellow-br master v-net-0
+# Assign IPs to these interfaces
+ip -n red addr add 192.168.15.2/24 dev veth-red
+ip -n blue addr add 192.168.15.3/24 dev veth-blue
+ip -n green addr add 192.168.15.4/24 dev veth-green
+ip -n yellow addr add 192.168.15.5/24 dev veth-yellow
+# Bring interfaces up
+ip -n red link set veth-red up
+ip -n blue link set veth-blue up
+ip -n green link set veth-green up
+ip -n yellow link set veth-yellow up
+# Bring interfaces (bridge) up
+ip link set veth-red-br up
+ip link set veth-blue-br up
+ip link set veth-green-br up
+ip link set veth-yellow-br up
+# Bring loopback interfaces up (for 192.168.15.0)
+ip -n red link set lo up
+ip -n blue link set lo up
+ip -n green link set lo up
+ip -n yellow link set lo up</code></pre>
+</section>
 </section>
 <section id="notes-from-online-articles" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="notes-from-online-articles">Notes from online articles</h2>
@@ -236,8 +306,8 @@ ul.task-list li input[type="checkbox"] {
 <p>Proxies (also called forward proxies) are intermediary servers that intercept client requests. A proxy might be implemented in an organisation to do things like block restricted content. Meanwhile, reverse proxies sit in front of servers and accept requests coming over the internet. They can provide functions such as load balancing and SSL encryption/decryption. The article <a href="https://www.cloudflare.com/en-gb/learning/cdn/glossary/reverse-proxy/">What is a reverse proxy? by CloudFlare</a> provides a good overview of these concepts. NGINX is a popular reverse proxy - <a href="https://dev.to/thesanjeevsharma/introduction-to-nginx-213b">this introduction to NGINX</a> provides a nice practical demonstration of its abilities.</p>
 </section>
 </section>
-<section id="resources" class="level2">
-<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<section id="resources" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="resources">Resources</h2>
 <p>Some of the other resources I used to understand networking basics:</p>
 <ul>
 <li><a href="https://www.juniper.net/gb/en/research-topics/what-is-a-network-switch.html">What is a network switch? by Juniper Networks</a></li>
