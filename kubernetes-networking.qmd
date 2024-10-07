@@ -59,6 +59,74 @@ nameserver  192.165.1.100
     * AAAA (quad A) records - map IPv6 to hostnames
     * CNAME (canonical name) - map one name to another e.g. if flowers.example.com had a CNAME record with a value of example.com, a lookup of "flowers.example.com" provies the ip address of "example.com", which is the canonical name
 
+### Network Namespaces in Linux
+
+A Linux installation generally shares a single set of network interfaces and routing table entries, but you can create isolated networks within that server. [This article by Scott Lowe](https://blog.scottlowe.org/2013/09/04/introducing-linux-network-namespaces/) goes into some detail about how to set up a network namespace on Ubuntu.  
+
+The CKA course on Udemy goes into more detail about creating a virtual network with namespaces and virtual switches:
+
+* There are different options for the network switch including Linux Bridge and Open vSwitch - below we'll use Linux Bridge
+* Run the command `ip link add v-net-0 type bridge` on the host - to create a new interface (run `ip link` to see it) - you'll also need to turn it up using `ip link set dev v-net-0 up`
+* Next, to connect a namespace to the switch, you'll need a virtual cable. Let's assume we are connecting namespace *red* to the virtual switch:
+    * Use `ip link add veth-red type veth peer name veth-red-br` to create the cable
+    * Use `ip link set veth-red` netns red
+    * Use `ip link set veth-red-br` master v-net-0
+    * Finally, assign ip addresses to the namespace interface E.g. `ip -n red addr add 192.165.15.1/24 dev veth-red`
+* To allow the virtual network to reach networks outside itself:
+    * we add an ip address to the virtual interface e.g. `ip addr add 192.165.15.5/24 dev v-net-0`
+    * in a given namespace (e.g. red) - add a gateway. `ip netns exec red ip route add 192.165.1.0/24 via 192.165.15.5` - our host is now the gateway (also do this for default)
+    * add a rule in iptables on host to mask requests coming from the virtual network with its own ip address - `iptable -t nat -A POSTROUTING -s 192.165.15.0/24 -j MASQUERADE`
+* Allowing requests to be made to a service in the virtual network from outside the host would require port forwarding with iptables
+* NOTE: There were some omissions from the video - fortunately the Q&A for the video had the solution:
+
+```
+# Add a bridge interface
+# It's like an interface for the host and a switch for namespaces!
+ip link add v-net-0 type bridge
+# Bring it up
+ip link set dev v-net-0 up
+# Add namespaces
+ip netns add red
+ip netns add blue
+ip netns add green
+ip netns add yellow
+# Create a virtual cable for namespace and bridge
+ip link add veth-red type veth peer name veth-red-br
+ip link add veth-blue type veth peer name veth-blue-br
+ip link add veth-green type veth peer name veth-green-br
+ip link add veth-yellow type veth peer name veth-yellow-br
+# Connect one end of virtual cable to namespace red
+ip link set veth-red netns red
+ip link set veth-blue netns blue
+ip link set veth-green netns green
+ip link set veth-yellow netns yellow
+# Connect virtual cable to the bridge
+ip link set veth-red-br master v-net-0
+ip link set veth-blue-br master v-net-0
+ip link set veth-green-br master v-net-0
+ip link set veth-yellow-br master v-net-0
+# Assign IPs to these interfaces
+ip -n red addr add 192.168.15.2/24 dev veth-red
+ip -n blue addr add 192.168.15.3/24 dev veth-blue
+ip -n green addr add 192.168.15.4/24 dev veth-green
+ip -n yellow addr add 192.168.15.5/24 dev veth-yellow
+# Bring interfaces up
+ip -n red link set veth-red up
+ip -n blue link set veth-blue up
+ip -n green link set veth-green up
+ip -n yellow link set veth-yellow up
+# Bring interfaces (bridge) up
+ip link set veth-red-br up
+ip link set veth-blue-br up
+ip link set veth-green-br up
+ip link set veth-yellow-br up
+# Bring loopback interfaces up (for 192.168.15.0)
+ip -n red link set lo up
+ip -n blue link set lo up
+ip -n green link set lo up
+ip -n yellow link set lo up
+```
+
 ## Notes from online articles {.unnumbered}
 
 ### Proxies and Reverse Proxies {.unnumbered}
