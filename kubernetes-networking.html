@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Networking in Kubernetes – Big Book of MLOps</title>
+<title>Networking in Kubernetes (in progress) – Big Book of MLOps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -80,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./kubernetes-networking.html">Networking in Kubernetes</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./kubernetes-networking.html">Networking in Kubernetes (in progress)</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -114,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./kubernetes-networking.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Networking in Kubernetes</span></a>
+ <span class="menu-text">Networking in Kubernetes (in progress)</span></a>
   </div>
 </li>
     </ul>
@@ -148,7 +148,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Networking in Kubernetes</h1>
+<h1 class="title">Networking in Kubernetes (in progress)</h1>
 </div>
 
 
@@ -165,6 +165,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>I recently discovered <a href="https://learnk8s.io/kubernetes-network-packets#tracing-pod-to-pod-communication-on-different-nodes">this article</a> which provides a more comprehensive view of what’s happening in K8s networking - I’ll be cleaning up the notes below to make things more concise.</p>
 <section id="notes-from-certified-kubernetes-administrator-cka-with-practice-tests" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="notes-from-certified-kubernetes-administrator-cka-with-practice-tests">Notes from <a href="https://www.udemy.com/course/certified-kubernetes-administrator-with-practice-tests/">Certified Kubernetes Administrator (CKA) with Practice Tests</a></h2>
 <section id="pre-requisites-on-networking" class="level3 unnumbered">
@@ -207,7 +208,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <pre><code>192.165.1.11    myname</code></pre>
 <ul>
-<li>I can now run <code>ping myname</code> to check connectivity to computer B. However, A will not actually check that B’s host name is myname. And this tasks would quickly become impossible as the network grew</li>
+<li>I can now run <code>ping myname</code> to check connectivity to computer B. However, A will not actually check that B’s host name is myname. And this would quickly become impossible as the network grew</li>
 <li>An internal DNS server solves the problem - it is a server containing a single source of truth</li>
 <li>If we assume the DNS server’s ip address is 192.165.1.100, an entry in A’s <code>/etc/resolv.conf</code> file tells it where to resolve domain names:</li>
 </ul>
@@ -221,7 +222,7 @@ ul.task-list li input[type="checkbox"] {
 <li>google - the second level domain</li>
 <li>www - a subdomain (other google examples could be mail or maps)</li>
 </ul></li>
-<li>There are DNS servers on the internet that are searched to find the ip address of the server that is hosting the web applications</li>
+<li>There are DNS servers on the internet that are searched to find the ip address of the server that is hosting the web application</li>
 <li>ip addresses can be cached by browsers to speed up subsequent requests</li>
 <li>DNS can contain records:
 <ul>
@@ -242,8 +243,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Next, to connect a namespace to the switch, you’ll need a virtual cable. Let’s assume we are connecting namespace <em>red</em> to the virtual switch:
 <ul>
 <li>Use <code>ip link add veth-red type veth peer name veth-red-br</code> to create the cable</li>
-<li>Use <code>ip link set veth-red</code> netns red</li>
-<li>Use <code>ip link set veth-red-br</code> master v-net-0</li>
+<li>Use <code>ip link set veth-red netns red</code></li>
+<li>Use <code>ip link set veth-red-br master v-net-0</code></li>
 <li>Finally, assign ip addresses to the namespace interface E.g. <code>ip -n red addr add 192.165.15.1/24 dev veth-red</code></li>
 </ul></li>
 <li>To allow the virtual network to reach networks outside itself:
