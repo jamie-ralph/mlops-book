@@ -1,6 +1,6 @@
 # Networking in Kubernetes (in progress) {.unnumbered}
 
-I recently discovered [this article](https://learnk8s.io/kubernetes-network-packets#tracing-pod-to-pod-communication-on-different-nodes) which provides a more comprehensive view of what's happening in K8s networking - I'll be cleaning up the notes below to make things more concise. 
+I recently discovered [this article](https://learnk8s.io/kubernetes-network-packets) which provides a more comprehensive view of what's happening in K8s networking - I'll be cleaning up the notes below to make things more concise. 
 
 ## Notes from [Certified Kubernetes Administrator (CKA) with Practice Tests](https://www.udemy.com/course/certified-kubernetes-administrator-with-practice-tests/) {.unnumbered}
 
