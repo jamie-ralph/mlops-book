@@ -1,4 +1,6 @@
-# Networking in Kubernetes {.unnumbered}
+# Networking in Kubernetes (in progress) {.unnumbered}
+
+I recently discovered [this article](https://learnk8s.io/kubernetes-network-packets#tracing-pod-to-pod-communication-on-different-nodes) which provides a more comprehensive view of what's happening in K8s networking - I'll be cleaning up the notes below to make things more concise. 
 
 ## Notes from [Certified Kubernetes Administrator (CKA) with Practice Tests](https://www.udemy.com/course/certified-kubernetes-administrator-with-practice-tests/) {.unnumbered}
 
@@ -38,7 +40,7 @@
 192.165.1.11    myname
 ```
 
-* I can now run `ping myname` to check connectivity to computer B. However, A will not actually check that B's host name is myname. And this tasks would quickly become impossible as the network grew
+* I can now run `ping myname` to check connectivity to computer B. However, A will not actually check that B's host name is myname. And this would quickly become impossible as the network grew
 * An internal DNS server solves the problem - it is a server containing a single source of truth
 * If we assume the DNS server's ip address is 192.165.1.100, an entry in A's `/etc/resolv.conf` file tells it where to resolve domain names:
 
@@ -52,7 +54,7 @@ nameserver  192.165.1.100
     * .com - top level domain (other examples are .edu, .org, .io) - can be a sign of the intent of the server e.g. .edu is for educational institutions, .org for non-profit
     * google - the second level domain 
     * www - a subdomain (other google examples could be mail or maps)
-* There are DNS servers on the internet that are searched to find the ip address of the server that is hosting the web applications
+* There are DNS servers on the internet that are searched to find the ip address of the server that is hosting the web application
 * ip addresses can be cached by browsers to speed up subsequent requests 
 * DNS can contain records:
     * A records - map ip addresses to hostnames
@@ -69,8 +71,8 @@ The CKA course on Udemy goes into more detail about creating a virtual network w
 * Run the command `ip link add v-net-0 type bridge` on the host - to create a new interface (run `ip link` to see it) - you'll also need to turn it up using `ip link set dev v-net-0 up`
 * Next, to connect a namespace to the switch, you'll need a virtual cable. Let's assume we are connecting namespace *red* to the virtual switch:
     * Use `ip link add veth-red type veth peer name veth-red-br` to create the cable
-    * Use `ip link set veth-red` netns red
-    * Use `ip link set veth-red-br` master v-net-0
+    * Use `ip link set veth-red netns red`
+    * Use `ip link set veth-red-br master v-net-0`
     * Finally, assign ip addresses to the namespace interface E.g. `ip -n red addr add 192.165.15.1/24 dev veth-red`
 * To allow the virtual network to reach networks outside itself:
     * we add an ip address to the virtual interface e.g. `ip addr add 192.165.15.5/24 dev v-net-0`
