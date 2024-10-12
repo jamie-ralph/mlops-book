@@ -131,6 +131,9 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#pre-requisites-on-networking" id="toc-pre-requisites-on-networking" class="nav-link" data-scroll-target="#pre-requisites-on-networking">Pre-requisites on networking</a></li>
   <li><a href="#network-namespaces-in-linux" id="toc-network-namespaces-in-linux" class="nav-link" data-scroll-target="#network-namespaces-in-linux">Network Namespaces in Linux</a></li>
+  <li><a href="#container-network-interfaces" id="toc-container-network-interfaces" class="nav-link" data-scroll-target="#container-network-interfaces">Container Network Interfaces</a></li>
+  <li><a href="#pod-networking" id="toc-pod-networking" class="nav-link" data-scroll-target="#pod-networking">Pod Networking</a></li>
+  <li><a href="#service-networking" id="toc-service-networking" class="nav-link" data-scroll-target="#service-networking">Service Networking</a></li>
   </ul></li>
   <li><a href="#notes-from-online-articles" id="toc-notes-from-online-articles" class="nav-link" data-scroll-target="#notes-from-online-articles">Notes from online articles</a>
   <ul class="collapse">
@@ -297,6 +300,53 @@ ip -n red link set lo up
 ip -n blue link set lo up
 ip -n green link set lo up
 ip -n yellow link set lo up</code></pre>
+</section>
+<section id="container-network-interfaces" class="level3">
+<h3 class="anchored" data-anchor-id="container-network-interfaces">Container Network Interfaces</h3>
+<ul>
+<li>CNI plugins are required for implementing the Kubernetes network model</li>
+<li>CNI is a <a href="https://www.cni.dev">Cloud Native Computing Foundation (CNCF)</a> project which defines specifications for network plugins, specifically dealing with connectivity of containers and removing allocated resources when a container is deleted</li>
+<li>An example plugin is the bridge plugin which connects a container to a virtual switch (the bridge) in the host network. A veth pair is generated which connects the container to the bridge. The container end is assigned an IP address. An IP address can also be assigned to the bridge itself, making it a gateway for the container.</li>
+<li>To check network interface configured for cluster connectivity on a node, <code>ip address</code> and check “inet” value. MAC address can be found in the same place</li>
+<li>To find the bridge created by the CRI on a node, run <code>ip address</code> or <code>ip address show type bridge</code></li>
+<li>The state of an interface can also be found using <code>ip address</code></li>
+<li>To find the default gateway on host, use <code>ip route</code></li>
+<li>To find which port kube-scheduler is listening on, use <code>netstat -npl | grep -i scheduler</code>:
+<ul>
+<li>n = don’t resolve name, p = display pid info, l = display listening server sockets</li>
+</ul></li>
+<li>To get etcd ports and count connections, <code>netstat -npa | grep etcd | grep &lt;port-number&gt; | wc -l</code>
+<ul>
+<li>a = display all sockets</li>
+</ul></li>
+</ul>
+</section>
+<section id="pod-networking" class="level3">
+<h3 class="anchored" data-anchor-id="pod-networking">Pod Networking</h3>
+<ul>
+<li>K8s does not come with in-built pod networking</li>
+<li>The K8s network model requires that:
+<ul>
+<li>pods have their own private network namespace (containers can reference each other via localhost)</li>
+<li>pods have IP addresses</li>
+<li>pods can communicate with other pods on the same node</li>
+<li>pods can communicate with other pods on different nodes without proxies or address translation (NAT)</li>
+</ul></li>
+<li>The ip address range applied to pods can be found by looking at the pod logs of the CNI plugin and looking for “ipalloc-range”</li>
+</ul>
+</section>
+<section id="service-networking" class="level3">
+<h3 class="anchored" data-anchor-id="service-networking">Service Networking</h3>
+<ul>
+<li>A service is an abstraction in K8s which enables the exposure of multiple pods via a single address. These pods are usually determined with label selectors.</li>
+<li>Services are assigned an IP address from a pre-determined range, which should differ from the range defined for pods</li>
+<li>Routing rules are configured using the <a href="https://kodekloud.com/blog/kube-proxy/">kube-proxy</a> component. The process for new services or endpoints (using internal only ClusterIP) looks like this:
+<ul>
+<li>kube-apiserver communicates the change to the kube-proxy</li>
+<li>kube-proxy creates rules via NAT inside a node - these are mappings from service IP and port to pod IP and port</li>
+</ul></li>
+<li>Newly created DNAT rules can be viewed in <em>/var/log/kube-proxy.log</em> files</li>
+</ul>
 </section>
 </section>
 <section id="notes-from-online-articles" class="level2 unnumbered">
