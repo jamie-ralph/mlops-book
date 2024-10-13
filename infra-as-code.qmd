@@ -1,0 +1,8 @@
+# Infrastructure as code {.unnumbered}
+
+Infrastructure as code (Iac) is a way to provision and manage infrastructure using code, rather than manual processes. IaC tools help to automate infrastructure management, and allow teams to track changes in infrastructure using version control.
+
+## Resources on Ansible
+
+-   Ansible is a tool for automating IT infrastructure. It combines pre-built modules and declarative **playbooks** to automate common administrative tasks on Linux servers. [This video series](https://www.youtube.com/watch?v=3RiVKs8GHYQ&list=PLT98CRl2KxKEUHie1m24-wkyHpEsa4Y70) from Learn Linux TV is a great introduction to Ansible.
+-   Kubespray is a tool that uses Ansible to manage Kubernetes clusters (e.g. deploying a cluster, adding/removing nodes). [This video](https://www.youtube.com/watch?v=1W4w2ziRU8Q) from Engineering with Morris runs through the setup process for a homelab Kubernetes cluster using Kubespray.

@@ -1,0 +1,8 @@
+# Architecture patterns with Python {.unnumbered}
+
+Software architecture is an important concept for writing software systems that are robust and easily maintained. While working in MLOps doesn't often require writing entire software systems, I've found that architecture patterns have helped me think about ways to design better automation scripts.
+
+## Resources on architecture patterns in Python
+
+-   By far the best resource I've found on this topic is [Architecture Patterns with Python](https://www.cosmicpython.com/#buy_the_book) by Harry Percival and Bob Gregory. It's a long read but is well worth checking out.
+-   ArjanCodes does some great videos on Python programming. [This video](https://www.youtube.com/watch?v=9ymRLDfnDKg) on the repository pattern helped me redesign a particularly awkward Python script that was performing operations on S3 buckets.
