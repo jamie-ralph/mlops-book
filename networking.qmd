@@ -14,6 +14,10 @@ Networking is a fundamental component of a Kubernetes cluster. There are many ne
 
 * MetalLB is a load-balancer implementation for bare metal Kubernetes clusters. It enables administrators of bare metal clusters to expose services using type LoadBalancer. [This video](https://www.youtube.com/watch?v=k8bxtsWe9qw) by Engineering with Morris provdies a clear and concise explanation of how MetalLB works. 
 
+## Resources for service meshes
+
+* A service mesh is a piece of infrastructure that makes communication between Kubernetes microservices more secure and trackable. There are different service meshes available, one of which is **istio**. [This video](https://istio.io/latest/about/service-mesh/) from Tech with Nana discusses how istio works and what problems it solves.
+
 ## Resources on proxies and reverse proxies
 
 * [What is a reverse proxy?](https://www.cloudflare.com/en-gb/learning/cdn/glossary/reverse-proxy/) by CloudFlare provides a good overview of why we need proxies and reverse proxies for network communication
