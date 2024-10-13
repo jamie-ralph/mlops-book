@@ -8,6 +8,8 @@ book:
   chapters:
     - index.qmd
     - networking.qmd
+    - infra-as-code.qmd
+    - python-arch-patterns.qmd
 
 format:
   html:
