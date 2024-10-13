@@ -129,6 +129,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#resources-on-kubernetes-networking" id="toc-resources-on-kubernetes-networking" class="nav-link active" data-scroll-target="#resources-on-kubernetes-networking">Resources on Kubernetes networking</a></li>
   <li><a href="#resources-for-networking-on-bare-metal-cluster-configurations" id="toc-resources-for-networking-on-bare-metal-cluster-configurations" class="nav-link" data-scroll-target="#resources-for-networking-on-bare-metal-cluster-configurations">Resources for networking on bare metal cluster configurations</a></li>
+  <li><a href="#resources-for-service-meshes" id="toc-resources-for-service-meshes" class="nav-link" data-scroll-target="#resources-for-service-meshes">Resources for service meshes</a></li>
   <li><a href="#resources-on-proxies-and-reverse-proxies" id="toc-resources-on-proxies-and-reverse-proxies" class="nav-link" data-scroll-target="#resources-on-proxies-and-reverse-proxies">Resources on proxies and reverse proxies</a></li>
   </ul>
 </nav>
@@ -164,13 +165,21 @@ ul.task-list li input[type="checkbox"] {
 <li>The official docs on <a href="https://kubernetes.io/docs/concepts/services-networking/service/">Services</a> goes into more detail on how services enable reliable communication with groups of pods whose IP addresses change as they’re destroyed and recreated.</li>
 <li>This article on <a href="https://kodekloud.com/blog/clusterip-nodeport-loadbalancer/">different service types</a> by KodeKloud goes into detail about the different service types available in Kubernetes.</li>
 <li><a href="https://learnk8s.io/kubernetes-network-packets">Tracing the path of network traffic in Kubernetes</a> by Kristijan Mitevski goes into much more detail about the mechanisms underlying pod to pod communication. The author covers key concepts like network namespaces, interfaces, network switches, and container network interfaces (CNI).</li>
+<li>The official docs on <a href="https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/">EndpointSlices</a> shows how Kubernetes bridges the gap between services and pods.</li>
 <li>This <a href="https://www.youtube.com/watch?v=80Ew_fsV4rM">video on Kubernetes ingress</a> by TechWorld with Nana gives a really nice overview of how Kubernetes services are exposed securely to the outside world. The video includes details on routing, ingress controllers, enabling HTTPS, and how ingress looks different in cloud platforms vs bare metal.</li>
+<li>Kubernetes uses DNS to allow workloads to find services using consistent domain names instead of IP address. Tech Tutorials with Piyush <a href="https://www.youtube.com/watch?v=VcWpZoRAQXE">introduces this topic</a> with a hands-on demo. The official docs also talk about <a href="https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/">how DNS works</a> in Kubernetes and provides a comprehensive guide to <a href="https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/">debugging DNS</a>.</li>
 </ul>
 </section>
 <section id="resources-for-networking-on-bare-metal-cluster-configurations" class="level2">
 <h2 class="anchored" data-anchor-id="resources-for-networking-on-bare-metal-cluster-configurations">Resources for networking on bare metal cluster configurations</h2>
 <ul>
 <li>MetalLB is a load-balancer implementation for bare metal Kubernetes clusters. It enables administrators of bare metal clusters to expose services using type LoadBalancer. <a href="https://www.youtube.com/watch?v=k8bxtsWe9qw">This video</a> by Engineering with Morris provdies a clear and concise explanation of how MetalLB works.</li>
+</ul>
+</section>
+<section id="resources-for-service-meshes" class="level2">
+<h2 class="anchored" data-anchor-id="resources-for-service-meshes">Resources for service meshes</h2>
+<ul>
+<li>A service mesh is a piece of infrastructure that makes communication between Kubernetes microservices more secure and trackable. There are different service meshes available, one of which is <strong>istio</strong>. <a href="https://istio.io/latest/about/service-mesh/">This video</a> from Tech with Nana discusses how istio works and what problems it solves.</li>
 </ul>
 </section>
 <section id="resources-on-proxies-and-reverse-proxies" class="level2">

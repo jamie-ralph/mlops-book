@@ -24,7 +24,7 @@
     "href": "networking.html#resources-on-kubernetes-networking",
     "title": "Networking in Kubernetes",
     "section": "",
-    "text": "Services, Load Balancing, Networking from the official Kubernetes docs gives a nice overview of Kubernetes networking APIs and requirements.\n\nThe official docs on Services goes into more detail on how services enable reliable communication with groups of pods whose IP addresses change as they’re destroyed and recreated.\nThis article on different service types by KodeKloud goes into detail about the different service types available in Kubernetes.\nTracing the path of network traffic in Kubernetes by Kristijan Mitevski goes into much more detail about the mechanisms underlying pod to pod communication. The author covers key concepts like network namespaces, interfaces, network switches, and container network interfaces (CNI).\nThis video on Kubernetes ingress by TechWorld with Nana gives a really nice overview of how Kubernetes services are exposed securely to the outside world. The video includes details on routing, ingress controllers, enabling HTTPS, and how ingress looks different in cloud platforms vs bare metal.",
+    "text": "Services, Load Balancing, Networking from the official Kubernetes docs gives a nice overview of Kubernetes networking APIs and requirements.\n\nThe official docs on Services goes into more detail on how services enable reliable communication with groups of pods whose IP addresses change as they’re destroyed and recreated.\nThis article on different service types by KodeKloud goes into detail about the different service types available in Kubernetes.\nTracing the path of network traffic in Kubernetes by Kristijan Mitevski goes into much more detail about the mechanisms underlying pod to pod communication. The author covers key concepts like network namespaces, interfaces, network switches, and container network interfaces (CNI).\nThe official docs on EndpointSlices shows how Kubernetes bridges the gap between services and pods.\nThis video on Kubernetes ingress by TechWorld with Nana gives a really nice overview of how Kubernetes services are exposed securely to the outside world. The video includes details on routing, ingress controllers, enabling HTTPS, and how ingress looks different in cloud platforms vs bare metal.\nKubernetes uses DNS to allow workloads to find services using consistent domain names instead of IP address. Tech Tutorials with Piyush introduces this topic with a hands-on demo. The official docs also talk about how DNS works in Kubernetes and provides a comprehensive guide to debugging DNS.",
     "crumbs": [
       "Networking in Kubernetes"
     ]
@@ -35,6 +35,16 @@
     "title": "Networking in Kubernetes",
     "section": "Resources for networking on bare metal cluster configurations",
     "text": "Resources for networking on bare metal cluster configurations\n\nMetalLB is a load-balancer implementation for bare metal Kubernetes clusters. It enables administrators of bare metal clusters to expose services using type LoadBalancer. This video by Engineering with Morris provdies a clear and concise explanation of how MetalLB works.",
+    "crumbs": [
+      "Networking in Kubernetes"
+    ]
+  },
+  {
+    "objectID": "networking.html#resources-for-service-meshes",
+    "href": "networking.html#resources-for-service-meshes",
+    "title": "Networking in Kubernetes",
+    "section": "Resources for service meshes",
+    "text": "Resources for service meshes\n\nA service mesh is a piece of infrastructure that makes communication between Kubernetes microservices more secure and trackable. There are different service meshes available, one of which is istio. This video from Tech with Nana discusses how istio works and what problems it solves.",
     "crumbs": [
       "Networking in Kubernetes"
     ]
