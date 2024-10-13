@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Networking in Kubernetes (in progress) – Big Book of MLOps</title>
+<title>Networking in Kubernetes – Big Book of MLOps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -80,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./kubernetes-networking.html">Networking in Kubernetes (in progress)</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./kubernetes-networking.html">Networking in Kubernetes</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -114,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./kubernetes-networking.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Networking in Kubernetes (in progress)</span></a>
+ <span class="menu-text">Networking in Kubernetes</span></a>
   </div>
 </li>
     </ul>
@@ -127,19 +127,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#notes-from-certified-kubernetes-administrator-cka-with-practice-tests" id="toc-notes-from-certified-kubernetes-administrator-cka-with-practice-tests" class="nav-link active" data-scroll-target="#notes-from-certified-kubernetes-administrator-cka-with-practice-tests">Notes from Certified Kubernetes Administrator (CKA) with Practice Tests</a>
-  <ul class="collapse">
-  <li><a href="#pre-requisites-on-networking" id="toc-pre-requisites-on-networking" class="nav-link" data-scroll-target="#pre-requisites-on-networking">Pre-requisites on networking</a></li>
-  <li><a href="#network-namespaces-in-linux" id="toc-network-namespaces-in-linux" class="nav-link" data-scroll-target="#network-namespaces-in-linux">Network Namespaces in Linux</a></li>
-  <li><a href="#container-network-interfaces" id="toc-container-network-interfaces" class="nav-link" data-scroll-target="#container-network-interfaces">Container Network Interfaces</a></li>
-  <li><a href="#pod-networking" id="toc-pod-networking" class="nav-link" data-scroll-target="#pod-networking">Pod Networking</a></li>
-  <li><a href="#service-networking" id="toc-service-networking" class="nav-link" data-scroll-target="#service-networking">Service Networking</a></li>
-  </ul></li>
-  <li><a href="#notes-from-online-articles" id="toc-notes-from-online-articles" class="nav-link" data-scroll-target="#notes-from-online-articles">Notes from online articles</a>
-  <ul class="collapse">
-  <li><a href="#proxies-and-reverse-proxies" id="toc-proxies-and-reverse-proxies" class="nav-link" data-scroll-target="#proxies-and-reverse-proxies">Proxies and Reverse Proxies</a></li>
-  </ul></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#resources-on-kubernetes-networking" id="toc-resources-on-kubernetes-networking" class="nav-link active" data-scroll-target="#resources-on-kubernetes-networking">Resources on Kubernetes networking</a></li>
+  <li><a href="#resources-on-proxies-and-reverse-proxies" id="toc-resources-on-proxies-and-reverse-proxies" class="nav-link" data-scroll-target="#resources-on-proxies-and-reverse-proxies">Resources on proxies and reverse proxies</a></li>
   </ul>
 </nav>
     </div>
@@ -148,7 +137,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Networking in Kubernetes (in progress)</h1>
+<h1 class="title">Networking in Kubernetes</h1>
 </div>
 
 
@@ -165,206 +154,23 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>I recently discovered <a href="https://learnk8s.io/kubernetes-network-packets">this article</a> which provides a more comprehensive view of what’s happening in K8s networking - I’ll be cleaning up the notes below to make things more concise.</p>
-<section id="notes-from-certified-kubernetes-administrator-cka-with-practice-tests" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="notes-from-certified-kubernetes-administrator-cka-with-practice-tests">Notes from <a href="https://www.udemy.com/course/certified-kubernetes-administrator-with-practice-tests/">Certified Kubernetes Administrator (CKA) with Practice Tests</a></h2>
-<section id="pre-requisites-on-networking" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="pre-requisites-on-networking">Pre-requisites on networking</h3>
-<section id="how-can-computers-talk-to-each-other-on-a-network" class="level4">
-<h4 class="anchored" data-anchor-id="how-can-computers-talk-to-each-other-on-a-network">How can computers talk to each other on a network?</h4>
+<p>Networking is a fundamental component of a Kubernetes cluster. There are many networking requirements within a cluster: containers communicate with each other in a pod, pods communicate with each other (both on the same node and across different nodes), and traffic from outside the cluster must reach the correct pod. Pods are ephemeral (they are destroyed and recreated) and have changing IP addresses, so how do we handle this? The resources here give a good overview of how Kubernetes networking is implemented.</p>
+<section id="resources-on-kubernetes-networking" class="level2">
+<h2 class="anchored" data-anchor-id="resources-on-kubernetes-networking">Resources on Kubernetes networking</h2>
 <ul>
-<li>In a simple network, two computers (let’s call them A and B) can exchange information over a network</li>
-<li>This communication is transmitted via a <strong>network switch</strong>, a piece of equipment that can connect IT devies. Network siwtches can vary in speed (e.g gigabytes per second).</li>
-<li>A computer sends information to the switch via an <strong>interface</strong>. This interface can be a piece of hardware or software depending on the situation, but is essentially a point of connection between the device and the network</li>
-<li>On linux, running <code>ip link</code> will print a list of interfaces in the terminal</li>
-<li>If we assume the network has an ip address of 192.165.1.0, we could add ip addresses to A and B with <code>ip addr add</code>, e.g.&nbsp;<code>ip addr add 192.165.1.10/24 dev eth0</code> on A and <code>ip addr add 192.165.1.11/24 dev eth0</code> on B. Note: Here, <strong>dev</strong> stands for <strong>device</strong> and eth0 is the first ethernet interface on the system.</li>
-<li>This would mean that A and B can now exchange packets with each other. Packets are small segments of a larger piece of information being sent over the network, which are recombined by the device that receives them.</li>
+<li><a href="https://kubernetes.io/docs/concepts/services-networking/">Services, Load Balancing, Networking</a> from the official Kubernetes docs gives a nice overview of K8s networking API and requirements.<br>
+</li>
+<li>The official docs on <a href="https://kubernetes.io/docs/concepts/services-networking/service/">Services</a> goes into more detail on how services enable reliable communication with groups of pods whose IP addresses change as they’re destroyed and recreated.</li>
+<li>This article on <a href="https://kodekloud.com/blog/clusterip-nodeport-loadbalancer/">different service types</a> goes into detail about the different service types available in Kubernetes</li>
+<li><a href="https://learnk8s.io/kubernetes-network-packets">Tracing the path of network traffic in Kubernetes</a> by Kristijan Mitevski goes into much more detail about the mechanisms underlying pod to pod communication. The author covers key concepts like network namespaces, interfaces, network switches, and container network interfaces (CNI).</li>
+<li>This <a href="https://www.youtube.com/watch?v=80Ew_fsV4rM">video on Kubernetes ingress</a> by TechWorld with Nana gives a really nice overview of how Kubernetes services are exposed securely to the outside world. The video includes details on routing, ingress controllers, enabling HTTPS, and how ingress looks different in cloud platforms vs bare metal.</li>
 </ul>
 </section>
-<section id="routing" class="level4">
-<h4 class="anchored" data-anchor-id="routing">Routing</h4>
+<section id="resources-on-proxies-and-reverse-proxies" class="level2">
+<h2 class="anchored" data-anchor-id="resources-on-proxies-and-reverse-proxies">Resources on proxies and reverse proxies</h2>
 <ul>
-<li>A router helps connect different networks</li>
-<li>The router is visible to each network with a different ip address</li>
-<li>Networks are configured with <strong>gateways</strong> which connects two different networks</li>
-<li>The <code>route</code> command in Linux will print the routing table</li>
-<li>Routes can be added using <code>ip route add</code></li>
-<li>Let’s assume this network setup:
-<ul>
-<li>A and B exist on network 192.165.1.0 - we’ll call this network 1</li>
-<li>C and D exist on network 192.165.2.0 - we’ll call this network 2</li>
-<li>A router is connected to network 1 via the ip 192.165.1.1, and connected to network 2 via the ip 192.165.2.1</li>
-</ul></li>
-<li>We can connect device A to network 2 by running <code>ip route add 192.165.2.0/24 via 192.165.1.1</code></li>
-<li>Running <code>route</code> shows that the router is now a gateway to network 2</li>
-<li>You can set default routes instead of adding an entry for every single network - <code>ip route add default via 192.165.1.1</code> - default is sometimes seen as ‘0.0.0.0’</li>
-<li>Linux servers can act as hosts themselves but packet forwarding between interfaces needs to be enabled. This can be a security threat if one interface connects to a public network and the other to a private network.</li>
-</ul>
-</section>
-<section id="domain-name-systems-dns" class="level4">
-<h4 class="anchored" data-anchor-id="domain-name-systems-dns">Domain Name Systems (DNS)</h4>
-<ul>
-<li>In a small simple network (let’s use A and B again, connected via a switch), we can give names to each device. I can add an entry in the <code>/etc/hosts</code> file of A:</li>
-</ul>
-<pre><code>192.165.1.11    myname</code></pre>
-<ul>
-<li>I can now run <code>ping myname</code> to check connectivity to computer B. However, A will not actually check that B’s host name is myname. And this would quickly become impossible as the network grew</li>
-<li>An internal DNS server solves the problem - it is a server containing a single source of truth</li>
-<li>If we assume the DNS server’s ip address is 192.165.1.100, an entry in A’s <code>/etc/resolv.conf</code> file tells it where to resolve domain names:</li>
-</ul>
-<pre><code>nameserver  192.165.1.100</code></pre>
-<ul>
-<li>A DNS functions like an internet phonebook. Domain names are linked to IP addresses - it means humans don’t need to memorise long IP addresses</li>
-<li>Domain names are strings pointing to a specific web services</li>
-<li>A domain name is usually comprised of several elements - e.g.&nbsp;www.google.com can be broken down to:
-<ul>
-<li>.com - top level domain (other examples are .edu, .org, .io) - can be a sign of the intent of the server e.g.&nbsp;.edu is for educational institutions, .org for non-profit</li>
-<li>google - the second level domain</li>
-<li>www - a subdomain (other google examples could be mail or maps)</li>
-</ul></li>
-<li>There are DNS servers on the internet that are searched to find the ip address of the server that is hosting the web application</li>
-<li>ip addresses can be cached by browsers to speed up subsequent requests</li>
-<li>DNS can contain records:
-<ul>
-<li>A records - map ip addresses to hostnames</li>
-<li>AAAA (quad A) records - map IPv6 to hostnames</li>
-<li>CNAME (canonical name) - map one name to another e.g.&nbsp;if flowers.example.com had a CNAME record with a value of example.com, a lookup of “flowers.example.com” provies the ip address of “example.com”, which is the canonical name</li>
-</ul></li>
-</ul>
-</section>
-</section>
-<section id="network-namespaces-in-linux" class="level3">
-<h3 class="anchored" data-anchor-id="network-namespaces-in-linux">Network Namespaces in Linux</h3>
-<p>A Linux installation generally shares a single set of network interfaces and routing table entries, but you can create isolated networks within that server. <a href="https://blog.scottlowe.org/2013/09/04/introducing-linux-network-namespaces/">This article by Scott Lowe</a> goes into some detail about how to set up a network namespace on Ubuntu.</p>
-<p>The CKA course on Udemy goes into more detail about creating a virtual network with namespaces and virtual switches:</p>
-<ul>
-<li>There are different options for the network switch including Linux Bridge and Open vSwitch - below we’ll use Linux Bridge</li>
-<li>Run the command <code>ip link add v-net-0 type bridge</code> on the host - to create a new interface (run <code>ip link</code> to see it) - you’ll also need to turn it up using <code>ip link set dev v-net-0 up</code></li>
-<li>Next, to connect a namespace to the switch, you’ll need a virtual cable. Let’s assume we are connecting namespace <em>red</em> to the virtual switch:
-<ul>
-<li>Use <code>ip link add veth-red type veth peer name veth-red-br</code> to create the cable</li>
-<li>Use <code>ip link set veth-red netns red</code></li>
-<li>Use <code>ip link set veth-red-br master v-net-0</code></li>
-<li>Finally, assign ip addresses to the namespace interface E.g. <code>ip -n red addr add 192.165.15.1/24 dev veth-red</code></li>
-</ul></li>
-<li>To allow the virtual network to reach networks outside itself:
-<ul>
-<li>we add an ip address to the virtual interface e.g.&nbsp;<code>ip addr add 192.165.15.5/24 dev v-net-0</code></li>
-<li>in a given namespace (e.g.&nbsp;red) - add a gateway. <code>ip netns exec red ip route add 192.165.1.0/24 via 192.165.15.5</code> - our host is now the gateway (also do this for default)</li>
-<li>add a rule in iptables on host to mask requests coming from the virtual network with its own ip address - <code>iptable -t nat -A POSTROUTING -s 192.165.15.0/24 -j MASQUERADE</code></li>
-</ul></li>
-<li>Allowing requests to be made to a service in the virtual network from outside the host would require port forwarding with iptables</li>
-<li>NOTE: There were some omissions from the video - fortunately the Q&amp;A for the video had the solution:</li>
-</ul>
-<pre><code># Add a bridge interface
-# It's like an interface for the host and a switch for namespaces!
-ip link add v-net-0 type bridge
-# Bring it up
-ip link set dev v-net-0 up
-# Add namespaces
-ip netns add red
-ip netns add blue
-ip netns add green
-ip netns add yellow
-# Create a virtual cable for namespace and bridge
-ip link add veth-red type veth peer name veth-red-br
-ip link add veth-blue type veth peer name veth-blue-br
-ip link add veth-green type veth peer name veth-green-br
-ip link add veth-yellow type veth peer name veth-yellow-br
-# Connect one end of virtual cable to namespace red
-ip link set veth-red netns red
-ip link set veth-blue netns blue
-ip link set veth-green netns green
-ip link set veth-yellow netns yellow
-# Connect virtual cable to the bridge
-ip link set veth-red-br master v-net-0
-ip link set veth-blue-br master v-net-0
-ip link set veth-green-br master v-net-0
-ip link set veth-yellow-br master v-net-0
-# Assign IPs to these interfaces
-ip -n red addr add 192.168.15.2/24 dev veth-red
-ip -n blue addr add 192.168.15.3/24 dev veth-blue
-ip -n green addr add 192.168.15.4/24 dev veth-green
-ip -n yellow addr add 192.168.15.5/24 dev veth-yellow
-# Bring interfaces up
-ip -n red link set veth-red up
-ip -n blue link set veth-blue up
-ip -n green link set veth-green up
-ip -n yellow link set veth-yellow up
-# Bring interfaces (bridge) up
-ip link set veth-red-br up
-ip link set veth-blue-br up
-ip link set veth-green-br up
-ip link set veth-yellow-br up
-# Bring loopback interfaces up (for 192.168.15.0)
-ip -n red link set lo up
-ip -n blue link set lo up
-ip -n green link set lo up
-ip -n yellow link set lo up</code></pre>
-</section>
-<section id="container-network-interfaces" class="level3">
-<h3 class="anchored" data-anchor-id="container-network-interfaces">Container Network Interfaces</h3>
-<ul>
-<li>CNI plugins are required for implementing the Kubernetes network model</li>
-<li>CNI is a <a href="https://www.cni.dev">Cloud Native Computing Foundation (CNCF)</a> project which defines specifications for network plugins, specifically dealing with connectivity of containers and removing allocated resources when a container is deleted</li>
-<li>An example plugin is the bridge plugin which connects a container to a virtual switch (the bridge) in the host network. A veth pair is generated which connects the container to the bridge. The container end is assigned an IP address. An IP address can also be assigned to the bridge itself, making it a gateway for the container.</li>
-<li>To check network interface configured for cluster connectivity on a node, <code>ip address</code> and check “inet” value. MAC address can be found in the same place</li>
-<li>To find the bridge created by the CRI on a node, run <code>ip address</code> or <code>ip address show type bridge</code></li>
-<li>The state of an interface can also be found using <code>ip address</code></li>
-<li>To find the default gateway on host, use <code>ip route</code></li>
-<li>To find which port kube-scheduler is listening on, use <code>netstat -npl | grep -i scheduler</code>:
-<ul>
-<li>n = don’t resolve name, p = display pid info, l = display listening server sockets</li>
-</ul></li>
-<li>To get etcd ports and count connections, <code>netstat -npa | grep etcd | grep &lt;port-number&gt; | wc -l</code>
-<ul>
-<li>a = display all sockets</li>
-</ul></li>
-</ul>
-</section>
-<section id="pod-networking" class="level3">
-<h3 class="anchored" data-anchor-id="pod-networking">Pod Networking</h3>
-<ul>
-<li>K8s does not come with in-built pod networking</li>
-<li>The K8s network model requires that:
-<ul>
-<li>pods have their own private network namespace (containers can reference each other via localhost)</li>
-<li>pods have IP addresses</li>
-<li>pods can communicate with other pods on the same node</li>
-<li>pods can communicate with other pods on different nodes without proxies or address translation (NAT)</li>
-</ul></li>
-<li>The ip address range applied to pods can be found by looking at the pod logs of the CNI plugin and looking for “ipalloc-range”</li>
-</ul>
-</section>
-<section id="service-networking" class="level3">
-<h3 class="anchored" data-anchor-id="service-networking">Service Networking</h3>
-<ul>
-<li>A service is an abstraction in K8s which enables the exposure of multiple pods via a single address. These pods are usually determined with label selectors.</li>
-<li>Services are assigned an IP address from a pre-determined range, which should differ from the range defined for pods</li>
-<li>Routing rules are configured using the <a href="https://kodekloud.com/blog/kube-proxy/">kube-proxy</a> component. The process for new services or endpoints (using internal only ClusterIP) looks like this:
-<ul>
-<li>kube-apiserver communicates the change to the kube-proxy</li>
-<li>kube-proxy creates rules via NAT inside a node - these are mappings from service IP and port to pod IP and port</li>
-</ul></li>
-<li>Newly created DNAT rules can be viewed in <em>/var/log/kube-proxy.log</em> files</li>
-</ul>
-</section>
-</section>
-<section id="notes-from-online-articles" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="notes-from-online-articles">Notes from online articles</h2>
-<section id="proxies-and-reverse-proxies" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="proxies-and-reverse-proxies">Proxies and Reverse Proxies</h3>
-<p>Proxies (also called forward proxies) are intermediary servers that intercept client requests. A proxy might be implemented in an organisation to do things like block restricted content. Meanwhile, reverse proxies sit in front of servers and accept requests coming over the internet. They can provide functions such as load balancing and SSL encryption/decryption. The article <a href="https://www.cloudflare.com/en-gb/learning/cdn/glossary/reverse-proxy/">What is a reverse proxy? by CloudFlare</a> provides a good overview of these concepts. NGINX is a popular reverse proxy - <a href="https://dev.to/thesanjeevsharma/introduction-to-nginx-213b">this introduction to NGINX</a> provides a nice practical demonstration of its abilities.</p>
-</section>
-</section>
-<section id="resources" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="resources">Resources</h2>
-<p>Some of the other resources I used to understand networking basics:</p>
-<ul>
-<li><a href="https://www.juniper.net/gb/en/research-topics/what-is-a-network-switch.html">What is a network switch? by Juniper Networks</a></li>
-<li><a href="https://aws.amazon.com/what-is/computer-networking/">What is computer networking? by AWS</a></li>
-<li><a href="https://nordlayer.com/learn/network-security/network-gateway/">What is a network gateway? by NordLayer</a></li>
-<li><a href="https://www.cloudflare.com/en-gb/learning/dns/dns-records/dns-cname-record/">What is a DNS CNAME record? by CloudFlare</a></li>
+<li><a href="https://www.cloudflare.com/en-gb/learning/cdn/glossary/reverse-proxy/">What is a reverse proxy?</a> by CloudFlare provides a good overview of why we need proxies and reverse proxies for network communication</li>
+<li>NGINX is a popular reverse proxy - <a href="https://dev.to/thesanjeevsharma/introduction-to-nginx-213b">this introduction to NGINX</a> by Sanjeev Sharma provides a hands-on demo of setting up NGINX and testing its capabilities</li>
 </ul>
 
 
