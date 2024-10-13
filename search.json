@@ -34,7 +34,7 @@
     "href": "networking.html#resources-for-networking-on-bare-metal-cluster-configurations",
     "title": "Networking in Kubernetes",
     "section": "Resources for networking on bare metal cluster configurations",
-    "text": "Resources for networking on bare metal cluster configurations\n\nMetalLB is a load-balancer implementation for bare metal Kubernetes clusters. It enables administrators of bare metal clusters to expose services using type LoadBalancer. This video by Engineering with Morris provdies a clear and concise explanation of how MetaLB works.",
+    "text": "Resources for networking on bare metal cluster configurations\n\nMetalLB is a load-balancer implementation for bare metal Kubernetes clusters. It enables administrators of bare metal clusters to expose services using type LoadBalancer. This video by Engineering with Morris provdies a clear and concise explanation of how MetalLB works.",
     "crumbs": [
       "Networking in Kubernetes"
     ]
