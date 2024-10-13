@@ -34,7 +34,7 @@
     "href": "networking.html#resources-for-networking-on-bare-metal-cluster-configurations",
     "title": "Networking in Kubernetes",
     "section": "Resources for networking on bare metal cluster configurations",
-    "text": "Resources for networking on bare metal cluster configurations\n\nMetalLB is a load-balancer implementation for bare metal Kubernetes clusters. It enables administrators of bare metal clusters to expose services using type LoadBalancer. This video by Engineering with Morris provdies a clear and concise explanation of how MetalLB works.",
+    "text": "Resources for networking on bare metal cluster configurations\n\nMetalLB is a load-balancer implementation for bare metal Kubernetes clusters. It enables administrators of bare metal clusters to expose services using type LoadBalancer. This video by Engineering with Morris provides a clear and concise explanation of how MetalLB works.",
     "crumbs": [
       "Networking in Kubernetes"
     ]
@@ -44,7 +44,7 @@
     "href": "networking.html#resources-for-service-meshes",
     "title": "Networking in Kubernetes",
     "section": "Resources for service meshes",
-    "text": "Resources for service meshes\n\nA service mesh is a piece of infrastructure that makes communication between Kubernetes microservices more secure and trackable. There are different service meshes available, one of which is istio. This video from Tech with Nana discusses how istio works and what problems it solves.",
+    "text": "Resources for service meshes\n\nA service mesh is a piece of infrastructure that makes communication between Kubernetes microservices more secure and traceable. There are different service meshes available, one of which is istio. This video from Tech with Nana discusses how istio works and what problems it solves.",
     "crumbs": [
       "Networking in Kubernetes"
     ]
