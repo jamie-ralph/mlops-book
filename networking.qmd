@@ -1,26 +1,26 @@
 # Networking in Kubernetes {.unnumbered}
 
-Networking is a fundamental component of a Kubernetes cluster. There are many networking requirements within a cluster: containers communicate with each other in a pod, pods communicate with each other (both on the same node and across different nodes), and traffic from outside the cluster must reach the correct pod. Pods are ephemeral (they are destroyed and recreated) and have changing IP addresses, so how do we handle this? The resources here give a good overview of how Kubernetes networking is implemented. 
+Networking is a fundamental component of a Kubernetes cluster. There are many networking requirements within a cluster: containers communicate with each other in a pod, pods communicate with each other (both on the same node and across different nodes), and traffic from outside the cluster must reach the correct pod. Pods are ephemeral (they are destroyed and recreated) and have changing IP addresses, so how do we handle this? The resources here give a good overview of how Kubernetes networking is implemented.
 
 ## Resources on Kubernetes networking
 
-* [Services, Load Balancing, Networking](https://kubernetes.io/docs/concepts/services-networking/) from the official Kubernetes docs gives a nice overview of Kubernetes networking APIs and requirements.  
-* The official docs on [Services](https://kubernetes.io/docs/concepts/services-networking/service/) goes into more detail on how services enable reliable communication with groups of pods whose IP addresses change as they're destroyed and recreated.
-* This article on [different service types](https://kodekloud.com/blog/clusterip-nodeport-loadbalancer/) by KodeKloud goes into detail about the different service types available in Kubernetes.
-* [Tracing the path of network traffic in Kubernetes](https://learnk8s.io/kubernetes-network-packets) by Kristijan Mitevski goes into much more detail about the mechanisms underlying pod to pod communication. The author covers key concepts like network namespaces, interfaces, network switches, and container network interfaces (CNI).
-* The official docs on [EndpointSlices](https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/) shows how Kubernetes bridges the gap between services and pods. 
-* This [video on Kubernetes ingress](https://www.youtube.com/watch?v=80Ew_fsV4rM) by TechWorld with Nana gives a really nice overview of how Kubernetes services are exposed securely to the outside world. The video includes details on routing, ingress controllers, enabling HTTPS, and how ingress looks different in cloud platforms vs bare metal. 
-* Kubernetes uses DNS to allow workloads to find services using consistent domain names instead of IP address. Tech Tutorials with Piyush [introduces this topic](https://www.youtube.com/watch?v=VcWpZoRAQXE) with a hands-on demo. The official docs also talk about [how DNS works](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/) in Kubernetes and provides a comprehensive guide to [debugging DNS](https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/).
+-   [Services, Load Balancing, Networking](https://kubernetes.io/docs/concepts/services-networking/) from the official Kubernetes docs gives a nice overview of Kubernetes networking APIs and requirements.\
+-   The official docs on [Services](https://kubernetes.io/docs/concepts/services-networking/service/) goes into more detail on how services enable reliable communication with groups of pods whose IP addresses change as they're destroyed and recreated.
+-   This article on [different service types](https://kodekloud.com/blog/clusterip-nodeport-loadbalancer/) by KodeKloud goes into detail about the different service types available in Kubernetes.
+-   [Tracing the path of network traffic in Kubernetes](https://learnk8s.io/kubernetes-network-packets) by Kristijan Mitevski goes into much more detail about the mechanisms underlying pod to pod communication. The author covers key concepts like network namespaces, interfaces, network switches, and container network interfaces (CNI).
+-   The official docs on [EndpointSlices](https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/) shows how Kubernetes bridges the gap between services and pods.
+-   This [video on Kubernetes ingress](https://www.youtube.com/watch?v=80Ew_fsV4rM) by TechWorld with Nana gives a really nice overview of how Kubernetes services are exposed securely to the outside world. The video includes details on routing, ingress controllers, enabling HTTPS, and how ingress looks different in cloud platforms vs bare metal.
+-   Kubernetes uses DNS to allow workloads to find services using consistent domain names instead of IP address. Tech Tutorials with Piyush [introduces this topic](https://www.youtube.com/watch?v=VcWpZoRAQXE) with a hands-on demo. The official docs also talk about [how DNS works](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/) in Kubernetes and provides a comprehensive guide to [debugging DNS](https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/).
 
 ## Resources for networking on bare metal cluster configurations
 
-* MetalLB is a load-balancer implementation for bare metal Kubernetes clusters. It enables administrators of bare metal clusters to expose services using type LoadBalancer. [This video](https://www.youtube.com/watch?v=k8bxtsWe9qw) by Engineering with Morris provdies a clear and concise explanation of how MetalLB works. 
+-   MetalLB is a load-balancer implementation for bare metal Kubernetes clusters. It enables administrators of bare metal clusters to expose services using type LoadBalancer. [This video](https://www.youtube.com/watch?v=k8bxtsWe9qw) by Engineering with Morris provides a clear and concise explanation of how MetalLB works.
 
 ## Resources for service meshes
 
-* A service mesh is a piece of infrastructure that makes communication between Kubernetes microservices more secure and trackable. There are different service meshes available, one of which is **istio**. [This video](https://istio.io/latest/about/service-mesh/) from Tech with Nana discusses how istio works and what problems it solves.
+-   A service mesh is a piece of infrastructure that makes communication between Kubernetes microservices more secure and traceable. There are different service meshes available, one of which is **istio**. [This video](https://istio.io/latest/about/service-mesh/) from Tech with Nana discusses how istio works and what problems it solves.
 
 ## Resources on proxies and reverse proxies
 
-* [What is a reverse proxy?](https://www.cloudflare.com/en-gb/learning/cdn/glossary/reverse-proxy/) by CloudFlare provides a good overview of why we need proxies and reverse proxies for network communication
-* NGINX is a popular reverse proxy - [this introduction to NGINX](https://dev.to/thesanjeevsharma/introduction-to-nginx-213b) by Sanjeev Sharma provides a hands-on demo of setting up NGINX and testing its capabilities
+-   [What is a reverse proxy?](https://www.cloudflare.com/en-gb/learning/cdn/glossary/reverse-proxy/) by CloudFlare provides a good overview of why we need proxies and reverse proxies for network communication
+-   NGINX is a popular reverse proxy - [this introduction to NGINX](https://dev.to/thesanjeevsharma/introduction-to-nginx-213b) by Sanjeev Sharma provides a hands-on demo of setting up NGINX and testing its capabilities
