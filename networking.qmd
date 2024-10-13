@@ -10,6 +10,10 @@ Networking is a fundamental component of a Kubernetes cluster. There are many ne
 * [Tracing the path of network traffic in Kubernetes](https://learnk8s.io/kubernetes-network-packets) by Kristijan Mitevski goes into much more detail about the mechanisms underlying pod to pod communication. The author covers key concepts like network namespaces, interfaces, network switches, and container network interfaces (CNI).
 * This [video on Kubernetes ingress](https://www.youtube.com/watch?v=80Ew_fsV4rM) by TechWorld with Nana gives a really nice overview of how Kubernetes services are exposed securely to the outside world. The video includes details on routing, ingress controllers, enabling HTTPS, and how ingress looks different in cloud platforms vs bare metal. 
 
+## Resources for networking on bare metal cluster configurations
+
+* MetaLB is a load-balancer implementation for bare metal Kubernetes clusters. It enables administrators of bare metal clusters to expose services using type LoadBalancer. [This video](https://www.youtube.com/watch?v=k8bxtsWe9qw) by Engineering with Morris provdies a clear and concise explanation of how MetaLB works. 
+
 ## Resources on proxies and reverse proxies
 
 * [What is a reverse proxy?](https://www.cloudflare.com/en-gb/learning/cdn/glossary/reverse-proxy/) by CloudFlare provides a good overview of why we need proxies and reverse proxies for network communication
