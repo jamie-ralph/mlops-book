@@ -58,5 +58,45 @@
     "crumbs": [
       "Networking in Kubernetes"
     ]
+  },
+  {
+    "objectID": "infra-as-code.html",
+    "href": "infra-as-code.html",
+    "title": "Infrastructure as code",
+    "section": "",
+    "text": "Resources on Ansible",
+    "crumbs": [
+      "Infrastructure as code"
+    ]
+  },
+  {
+    "objectID": "infra-as-code.html#resources-on-ansible",
+    "href": "infra-as-code.html#resources-on-ansible",
+    "title": "Infrastructure as code",
+    "section": "",
+    "text": "Ansible is a tool for automating IT infrastructure. It combines pre-built modules and declarative playbooks to automate common administrative tasks on Linux servers. This video series from Learn Linux TV is a great introduction to Ansible.\nKubespray is a tool that uses Ansible to manage Kubernetes clusters (e.g. deploying a cluster, adding/removing nodes). This video from Engineering with Morris runs through the setup process for a homelab Kubernetes cluster using Kubespray.",
+    "crumbs": [
+      "Infrastructure as code"
+    ]
+  },
+  {
+    "objectID": "python-arch-patterns.html",
+    "href": "python-arch-patterns.html",
+    "title": "Architecture patterns with Python",
+    "section": "",
+    "text": "Resources on architecture patterns in Python",
+    "crumbs": [
+      "Architecture patterns with Python"
+    ]
+  },
+  {
+    "objectID": "python-arch-patterns.html#resources-on-architecture-patterns-in-python",
+    "href": "python-arch-patterns.html#resources-on-architecture-patterns-in-python",
+    "title": "Architecture patterns with Python",
+    "section": "",
+    "text": "By far the best resource I’ve found on this topic is Architecture Patterns with Python by Harry Percival and Bob Gregory. It’s a long read but is well worth checking out.\nArjanCodes does some great videos on Python programming. This video on the repository pattern helped me redesign a particularly awkward Python script that was performing operations on S3 buckets.",
+    "crumbs": [
+      "Architecture patterns with Python"
+    ]
   }
 ]

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Networking in Kubernetes – Big Book of MLOps</title>
+<title>Architecture patterns with Python – Big Book of MLOps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./infra-as-code.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./infra-as-code.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -81,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./networking.html">Networking in Kubernetes</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./python-arch-patterns.html">Architecture patterns with Python</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -114,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./networking.html" class="sidebar-item-text sidebar-link active">
+  <a href="./networking.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Networking in Kubernetes</span></a>
   </div>
 </li>
@@ -126,7 +125,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./python-arch-patterns.html" class="sidebar-item-text sidebar-link">
+  <a href="./python-arch-patterns.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Architecture patterns with Python</span></a>
   </div>
 </li>
@@ -140,10 +139,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#resources-on-kubernetes-networking" id="toc-resources-on-kubernetes-networking" class="nav-link active" data-scroll-target="#resources-on-kubernetes-networking">Resources on Kubernetes networking</a></li>
-  <li><a href="#resources-for-networking-on-bare-metal-cluster-configurations" id="toc-resources-for-networking-on-bare-metal-cluster-configurations" class="nav-link" data-scroll-target="#resources-for-networking-on-bare-metal-cluster-configurations">Resources for networking on bare metal cluster configurations</a></li>
-  <li><a href="#resources-for-service-meshes" id="toc-resources-for-service-meshes" class="nav-link" data-scroll-target="#resources-for-service-meshes">Resources for service meshes</a></li>
-  <li><a href="#resources-on-proxies-and-reverse-proxies" id="toc-resources-on-proxies-and-reverse-proxies" class="nav-link" data-scroll-target="#resources-on-proxies-and-reverse-proxies">Resources on proxies and reverse proxies</a></li>
+  <li><a href="#resources-on-architecture-patterns-in-python" id="toc-resources-on-architecture-patterns-in-python" class="nav-link active" data-scroll-target="#resources-on-architecture-patterns-in-python">Resources on architecture patterns in Python</a></li>
   </ul>
 </nav>
     </div>
@@ -152,7 +148,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Networking in Kubernetes</h1>
+<h1 class="title">Architecture patterns with Python</h1>
 </div>
 
 
@@ -169,37 +165,12 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Networking is a fundamental component of a Kubernetes cluster. There are many networking requirements within a cluster: containers communicate with each other in a pod, pods communicate with each other (both on the same node and across different nodes), and traffic from outside the cluster must reach the correct pod. Pods are ephemeral (they are destroyed and recreated) and have changing IP addresses, so how do we handle this? The resources here give a good overview of how Kubernetes networking is implemented.</p>
-<section id="resources-on-kubernetes-networking" class="level2">
-<h2 class="anchored" data-anchor-id="resources-on-kubernetes-networking">Resources on Kubernetes networking</h2>
+<p>Software architecture is an important concept for writing software systems that are robust and easily maintained. While working in MLOps doesn’t often require writing entire software systems, I’ve found that architecture patterns have helped me think about ways to design better automation scripts.</p>
+<section id="resources-on-architecture-patterns-in-python" class="level2">
+<h2 class="anchored" data-anchor-id="resources-on-architecture-patterns-in-python">Resources on architecture patterns in Python</h2>
 <ul>
-<li><a href="https://kubernetes.io/docs/concepts/services-networking/">Services, Load Balancing, Networking</a> from the official Kubernetes docs gives a nice overview of Kubernetes networking APIs and requirements.<br>
-</li>
-<li>The official docs on <a href="https://kubernetes.io/docs/concepts/services-networking/service/">Services</a> goes into more detail on how services enable reliable communication with groups of pods whose IP addresses change as they’re destroyed and recreated.</li>
-<li>This article on <a href="https://kodekloud.com/blog/clusterip-nodeport-loadbalancer/">different service types</a> by KodeKloud goes into detail about the different service types available in Kubernetes.</li>
-<li><a href="https://learnk8s.io/kubernetes-network-packets">Tracing the path of network traffic in Kubernetes</a> by Kristijan Mitevski goes into much more detail about the mechanisms underlying pod to pod communication. The author covers key concepts like network namespaces, interfaces, network switches, and container network interfaces (CNI).</li>
-<li>The official docs on <a href="https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/">EndpointSlices</a> shows how Kubernetes bridges the gap between services and pods.</li>
-<li>This <a href="https://www.youtube.com/watch?v=80Ew_fsV4rM">video on Kubernetes ingress</a> by TechWorld with Nana gives a really nice overview of how Kubernetes services are exposed securely to the outside world. The video includes details on routing, ingress controllers, enabling HTTPS, and how ingress looks different in cloud platforms vs bare metal.</li>
-<li>Kubernetes uses DNS to allow workloads to find services using consistent domain names instead of IP address. Tech Tutorials with Piyush <a href="https://www.youtube.com/watch?v=VcWpZoRAQXE">introduces this topic</a> with a hands-on demo. The official docs also talk about <a href="https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/">how DNS works</a> in Kubernetes and provides a comprehensive guide to <a href="https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/">debugging DNS</a>.</li>
-</ul>
-</section>
-<section id="resources-for-networking-on-bare-metal-cluster-configurations" class="level2">
-<h2 class="anchored" data-anchor-id="resources-for-networking-on-bare-metal-cluster-configurations">Resources for networking on bare metal cluster configurations</h2>
-<ul>
-<li>MetalLB is a load-balancer implementation for bare metal Kubernetes clusters. It enables administrators of bare metal clusters to expose services using type LoadBalancer. <a href="https://www.youtube.com/watch?v=k8bxtsWe9qw">This video</a> by Engineering with Morris provides a clear and concise explanation of how MetalLB works.</li>
-</ul>
-</section>
-<section id="resources-for-service-meshes" class="level2">
-<h2 class="anchored" data-anchor-id="resources-for-service-meshes">Resources for service meshes</h2>
-<ul>
-<li>A service mesh is a piece of infrastructure that makes communication between Kubernetes microservices more secure and traceable. There are different service meshes available, one of which is <strong>istio</strong>. <a href="https://istio.io/latest/about/service-mesh/">This video</a> from Tech with Nana discusses how istio works and what problems it solves.</li>
-</ul>
-</section>
-<section id="resources-on-proxies-and-reverse-proxies" class="level2">
-<h2 class="anchored" data-anchor-id="resources-on-proxies-and-reverse-proxies">Resources on proxies and reverse proxies</h2>
-<ul>
-<li><a href="https://www.cloudflare.com/en-gb/learning/cdn/glossary/reverse-proxy/">What is a reverse proxy?</a> by CloudFlare provides a good overview of why we need proxies and reverse proxies for network communication</li>
-<li>NGINX is a popular reverse proxy - <a href="https://dev.to/thesanjeevsharma/introduction-to-nginx-213b">this introduction to NGINX</a> by Sanjeev Sharma provides a hands-on demo of setting up NGINX and testing its capabilities</li>
+<li>By far the best resource I’ve found on this topic is <a href="https://www.cosmicpython.com/#buy_the_book">Architecture Patterns with Python</a> by Harry Percival and Bob Gregory. It’s a long read but is well worth checking out.</li>
+<li>ArjanCodes does some great videos on Python programming. <a href="https://www.youtube.com/watch?v=9ymRLDfnDKg">This video</a> on the repository pattern helped me redesign a particularly awkward Python script that was performing operations on S3 buckets.</li>
 </ul>
 
 
@@ -628,14 +599,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="Preface">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      <a href="./infra-as-code.html" class="pagination-link" aria-label="Infrastructure as code">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Infrastructure as code</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./infra-as-code.html" class="pagination-link" aria-label="Infrastructure as code">
-        <span class="nav-page-text">Infrastructure as code</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
