@@ -12,7 +12,7 @@ Networking is a fundamental component of a Kubernetes cluster. There are many ne
 
 ## Resources for networking on bare metal cluster configurations
 
-* MetalLB is a load-balancer implementation for bare metal Kubernetes clusters. It enables administrators of bare metal clusters to expose services using type LoadBalancer. [This video](https://www.youtube.com/watch?v=k8bxtsWe9qw) by Engineering with Morris provdies a clear and concise explanation of how MetaLB works. 
+* MetalLB is a load-balancer implementation for bare metal Kubernetes clusters. It enables administrators of bare metal clusters to expose services using type LoadBalancer. [This video](https://www.youtube.com/watch?v=k8bxtsWe9qw) by Engineering with Morris provdies a clear and concise explanation of how MetalLB works. 
 
 ## Resources on proxies and reverse proxies
 
