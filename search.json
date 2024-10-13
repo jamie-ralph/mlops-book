@@ -30,6 +30,16 @@
     ]
   },
   {
+    "objectID": "networking.html#resources-for-networking-on-bare-metal-cluster-configurations",
+    "href": "networking.html#resources-for-networking-on-bare-metal-cluster-configurations",
+    "title": "Networking in Kubernetes",
+    "section": "Resources for networking on bare metal cluster configurations",
+    "text": "Resources for networking on bare metal cluster configurations\n\nMetaLB is a load-balancer implementation for bare metal Kubernetes clusters. It enables administrators of bare metal clusters to expose services using type LoadBalancer. This video by Engineering with Morris provdies a clear and concise explanation of how MetaLB works.",
+    "crumbs": [
+      "Networking in Kubernetes"
+    ]
+  },
+  {
     "objectID": "networking.html#resources-on-proxies-and-reverse-proxies",
     "href": "networking.html#resources-on-proxies-and-reverse-proxies",
     "title": "Networking in Kubernetes",
