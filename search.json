@@ -4,14 +4,14 @@
     "href": "index.html",
     "title": "Big Book of MLOps",
     "section": "",
-    "text": "Preface\nMLOps is a big field. I work in MLOps and spend a lot of time learning things. Unfortunately my brain can only store so much information, and it’s easy to forget stuff.\nThis book is a repository of the knowledge I’ve learned since starting in MLOps. The content can roughly be divided into these categories:\n\nShort summaries of topics with links to articles that explain things nicely\nNotes I’ve taken from video courses (I find these the most time consuming and attention hungry. Taking notes mean I only sit through them once)\nUseful hints from technical books I’ve read",
+    "text": "Preface\nMachine learning operations (MLOps) is a set of practices that applies DevOps principles to the ML model lifecycle. MLOps teams manage a complex ecosystem of tools and platforms that data scientists and ML engineers use to productionise their models. I started working in MLOps in February 2024 and quickly found it a steep learning curve. One of the challenges was just knowing where to start and where to look for information. This book tries to bring together the resources I’ve found most useful for working in MLOps.\nThis book is a work in progress. The planned sections for the book fall roughly into these categories:\n\nKubernetes\nLinux\nPython\nEssental non-technical skills (e.g. time management)",
     "crumbs": [
       "Preface"
     ]
   },
   {
-    "objectID": "kubernetes-networking.html",
-    "href": "kubernetes-networking.html",
+    "objectID": "networking.html",
+    "href": "networking.html",
     "title": "Networking in Kubernetes",
     "section": "",
     "text": "Resources on Kubernetes networking",
@@ -20,18 +20,18 @@
     ]
   },
   {
-    "objectID": "kubernetes-networking.html#resources-on-kubernetes-networking",
-    "href": "kubernetes-networking.html#resources-on-kubernetes-networking",
+    "objectID": "networking.html#resources-on-kubernetes-networking",
+    "href": "networking.html#resources-on-kubernetes-networking",
     "title": "Networking in Kubernetes",
     "section": "",
-    "text": "Services, Load Balancing, Networking from the official Kubernetes docs gives a nice overview of K8s networking API and requirements.\n\nThe official docs on Services goes into more detail on how services enable reliable communication with groups of pods whose IP addresses change as they’re destroyed and recreated.\nThis article on different service types goes into detail about the different service types available in Kubernetes\nTracing the path of network traffic in Kubernetes by Kristijan Mitevski goes into much more detail about the mechanisms underlying pod to pod communication. The author covers key concepts like network namespaces, interfaces, network switches, and container network interfaces (CNI).\nThis video on Kubernetes ingress by TechWorld with Nana gives a really nice overview of how Kubernetes services are exposed securely to the outside world. The video includes details on routing, ingress controllers, enabling HTTPS, and how ingress looks different in cloud platforms vs bare metal.",
+    "text": "Services, Load Balancing, Networking from the official Kubernetes docs gives a nice overview of Kubernetes networking APIs and requirements.\n\nThe official docs on Services goes into more detail on how services enable reliable communication with groups of pods whose IP addresses change as they’re destroyed and recreated.\nThis article on different service types by KodeKloud goes into detail about the different service types available in Kubernetes.\nTracing the path of network traffic in Kubernetes by Kristijan Mitevski goes into much more detail about the mechanisms underlying pod to pod communication. The author covers key concepts like network namespaces, interfaces, network switches, and container network interfaces (CNI).\nThis video on Kubernetes ingress by TechWorld with Nana gives a really nice overview of how Kubernetes services are exposed securely to the outside world. The video includes details on routing, ingress controllers, enabling HTTPS, and how ingress looks different in cloud platforms vs bare metal.",
     "crumbs": [
       "Networking in Kubernetes"
     ]
   },
   {
-    "objectID": "kubernetes-networking.html#resources-on-proxies-and-reverse-proxies",
-    "href": "kubernetes-networking.html#resources-on-proxies-and-reverse-proxies",
+    "objectID": "networking.html#resources-on-proxies-and-reverse-proxies",
+    "href": "networking.html#resources-on-proxies-and-reverse-proxies",
     "title": "Networking in Kubernetes",
     "section": "Resources on proxies and reverse proxies",
     "text": "Resources on proxies and reverse proxies\n\nWhat is a reverse proxy? by CloudFlare provides a good overview of why we need proxies and reverse proxies for network communication\nNGINX is a popular reverse proxy - this introduction to NGINX by Sanjeev Sharma provides a hands-on demo of setting up NGINX and testing its capabilities",
