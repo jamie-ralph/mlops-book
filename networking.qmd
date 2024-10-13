@@ -4,9 +4,9 @@ Networking is a fundamental component of a Kubernetes cluster. There are many ne
 
 ## Resources on Kubernetes networking
 
-* [Services, Load Balancing, Networking](https://kubernetes.io/docs/concepts/services-networking/) from the official Kubernetes docs gives a nice overview of K8s networking API and requirements.  
+* [Services, Load Balancing, Networking](https://kubernetes.io/docs/concepts/services-networking/) from the official Kubernetes docs gives a nice overview of Kubernetes networking APIs and requirements.  
 * The official docs on [Services](https://kubernetes.io/docs/concepts/services-networking/service/) goes into more detail on how services enable reliable communication with groups of pods whose IP addresses change as they're destroyed and recreated.
-* This article on [different service types](https://kodekloud.com/blog/clusterip-nodeport-loadbalancer/) goes into detail about the different service types available in Kubernetes
+* This article on [different service types](https://kodekloud.com/blog/clusterip-nodeport-loadbalancer/) by KodeKloud goes into detail about the different service types available in Kubernetes.
 * [Tracing the path of network traffic in Kubernetes](https://learnk8s.io/kubernetes-network-packets) by Kristijan Mitevski goes into much more detail about the mechanisms underlying pod to pod communication. The author covers key concepts like network namespaces, interfaces, network switches, and container network interfaces (CNI).
 * This [video on Kubernetes ingress](https://www.youtube.com/watch?v=80Ew_fsV4rM) by TechWorld with Nana gives a really nice overview of how Kubernetes services are exposed securely to the outside world. The video includes details on routing, ingress controllers, enabling HTTPS, and how ingress looks different in cloud platforms vs bare metal. 
 

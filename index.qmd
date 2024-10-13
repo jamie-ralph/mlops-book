@@ -1,9 +1,10 @@
 # Preface {.unnumbered}
 
-MLOps is a big field. I work in MLOps and spend a lot of time learning things. Unfortunately my brain can only store so much information, and it's easy to forget stuff. 
+Machine learning operations (MLOps) is a set of practices that applies DevOps principles to the ML model lifecycle. MLOps teams manage a complex ecosystem of tools and platforms that data scientists and ML engineers use to productionise their models. I started working in MLOps in February 2024 and quickly found it a steep learning curve. One of the challenges was just knowing where to start and where to look for information. This book tries to bring together the resources I've found most useful for working in MLOps. 
 
-This book is a repository of the knowledge I've learned since starting in MLOps. The content can roughly be divided into these categories:
+This book is a work in progress. The planned sections for the book fall roughly into these categories:
 
-* Short summaries of topics with links to articles that explain things nicely
-* Notes I've taken from video courses (I find these the most time consuming and attention hungry. Taking notes mean I only sit through them once)
-* Useful hints from technical books I've read
+* Kubernetes
+* Linux
+* Python
+* Essental non-technical skills (e.g. time management)
